@@ -5,7 +5,11 @@ import { useAlert } from '@/core/components/alert/useAlert';
 import { cn } from '@/core/lib/cn';
 import { PrimaryButton } from '@/core/components/PrimaryButton';
 import { ModulePageScaffold } from '../components/ModulePageScaffold';
-import { ModuleContinueButton, ModuleErrorScaffold, ModuleLoadingScaffold } from '../components/moduleChrome';
+import {
+  ModuleContinueButton,
+  ModuleErrorScaffold,
+  ModuleLoadingScaffold,
+} from '../components/moduleChrome';
 import { useCheckQuizAnswerMutation, useStartQuizAttemptMutation } from '../api/moduleApi';
 import type {
   LikertScaleOption,
@@ -135,7 +139,9 @@ function QuizRunner({
         nav={nav}
         backgroundClassName="bg-white"
         body={<QuizResultView result={result} />}
-        footer={<ModuleContinueButton hasNext={nav.hasNext} busy={false} onPressed={nav.onAdvance} />}
+        footer={
+          <ModuleContinueButton hasNext={nav.hasNext} busy={false} onPressed={nav.onAdvance} />
+        }
       />
     );
   }
@@ -242,11 +248,9 @@ function ChoiceOptionTile({
       >
         {letter}
       </span>
+      {/* Tanpa line-clamp -- opsi jawaban tidak boleh terpotong. */}
       <span
-        className={cn(
-          'line-clamp-2 flex-1 text-body-md',
-          selected ? 'font-semibold text-primary' : 'text-ink',
-        )}
+        className={cn('flex-1 text-body-md', selected ? 'font-semibold text-primary' : 'text-ink')}
       >
         {option.optionText}
       </span>
@@ -340,9 +344,7 @@ function LikertRow({
               selected ? 'bg-primary' : 'bg-background',
             )}
           >
-            <span
-              className={cn('text-title-md', selected ? 'text-white' : 'text-ink')}
-            >
+            <span className={cn('text-title-md', selected ? 'text-white' : 'text-ink')}>
               {option.value}
             </span>
             <span
