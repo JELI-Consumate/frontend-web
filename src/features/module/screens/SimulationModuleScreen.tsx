@@ -221,14 +221,12 @@ function MatchingGame({
       <div className="h-sm" />
       {pairs.map((left, i) => {
         const right = rightItems[i]!;
-        const backgroundColor = matchPairColor(i);
         return (
           <div key={left.id} className="mb-sm flex items-stretch gap-sm">
             <MatchCard
               label={left.leftLabel}
               description={left.leftDescription}
               imageUrl={left.leftImageUrl}
-              backgroundColor={backgroundColor}
               side="situation"
               solved={solved.has(left.id)}
               selected={selectedLeftId === left.id}
@@ -242,7 +240,6 @@ function MatchingGame({
               label={right.rightLabel}
               description={right.rightDescription}
               imageUrl={right.rightImageUrl}
-              backgroundColor={backgroundColor}
               side="solution"
               solved={solved.has(right.id)}
               selected={false}
@@ -255,29 +252,12 @@ function MatchingGame({
   );
 }
 
-/**
- * Warna latar kartu per pasangan, diulang jika pasangan lebih banyak dari
- * jumlah warna. Kedua kartu (situasi & solusi) dalam satu baris berbagi
- * warna yang sama supaya terasa sepasang, seperti pada mockup desain.
- */
-const MATCH_PAIR_BACKGROUNDS = [
-  'bg-primary-soft',
-  'bg-warning-soft',
-  'bg-danger-soft',
-  'bg-success-soft',
-];
-
-function matchPairColor(index: number): string {
-  return MATCH_PAIR_BACKGROUNDS[index % MATCH_PAIR_BACKGROUNDS.length]!;
-}
-
 type MatchCardSide = 'situation' | 'solution';
 
 function MatchCard({
   label,
   description,
   imageUrl,
-  backgroundColor,
   side,
   solved,
   selected,
@@ -286,26 +266,12 @@ function MatchCard({
   label: string;
   description: string | null;
   imageUrl: string | null;
-  backgroundColor: string;
   side: MatchCardSide;
   solved: boolean;
   selected: boolean;
   onTap?: () => void;
 }) {
   const isSituation = side === 'situation';
-  const thumbnail = imageUrl ? (
-    <StepThumbnail imageUrl={imageUrl} size={48} />
-  ) : (
-    <MatchThumbnailPlaceholder isSituation={isSituation} />
-  );
-  const content = (
-    <div className="flex min-w-0 flex-1 flex-col items-start text-left">
-      <MatchBadge label={label} isSituation={isSituation} />
-      {description ? (
-        <span className="mt-xxs line-clamp-4 text-body-sm text-ink-muted">{description}</span>
-      ) : null}
-    </div>
-  );
 
   return (
     <button
@@ -313,8 +279,7 @@ function MatchCard({
       onClick={onTap}
       disabled={!onTap}
       className={cn(
-        'relative flex flex-1 items-start gap-sm rounded-lg border p-sm',
-        backgroundColor,
+        'relative flex flex-1 flex-col overflow-hidden rounded-lg border bg-white text-left',
         solved
           ? 'border-success opacity-60'
           : selected
@@ -322,18 +287,25 @@ function MatchCard({
             : 'border-border',
       )}
     >
-      {isSituation ? (
-        <>
-          {thumbnail}
-          {content}
-        </>
-      ) : (
-        <>
-          {content}
-          {thumbnail}
-        </>
-      )}
-      {solved ? <Check size={18} className="-right-0.5 -top-0.5 absolute text-success" /> : null}
+      {imageUrl ? (
+        <div className="aspect-[4/3] w-full bg-background">
+          <img
+            src={imageUrl}
+            alt=""
+            className="h-full w-full object-cover"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).style.display = 'none';
+            }}
+          />
+        </div>
+      ) : null}
+      <div className="flex flex-col items-start p-sm">
+        <MatchBadge label={label} isSituation={isSituation} />
+        {description ? (
+          <span className="mt-xxs line-clamp-4 text-body-sm text-ink-muted">{description}</span>
+        ) : null}
+      </div>
+      {solved ? <Check size={18} className="absolute right-6 top-6 text-success" /> : null}
     </button>
   );
 }
@@ -353,16 +325,6 @@ function MatchBadge({ label, isSituation }: { label: string; isSituation: boolea
     >
       <Icon size={12} className="shrink-0" />
       <span className="truncate">{label}</span>
-    </span>
-  );
-}
-
-/** Placeholder saat pasangan belum punya foto. */
-function MatchThumbnailPlaceholder({ isSituation }: { isSituation: boolean }) {
-  const Icon = isSituation ? CircleAlert : Lightbulb;
-  return (
-    <span className="flex h-48 w-48 shrink-0 items-center justify-center rounded-sm bg-white/60">
-      <Icon size={22} className="text-ink-muted" />
     </span>
   );
 }
@@ -588,19 +550,14 @@ function PoolCard({ step, onTap }: { step: SimulationOrderingStep; onTap?: () =>
       onClick={onTap}
       disabled={!onTap}
       className={cn(
-        'flex w-full items-start gap-sm rounded-sm border border-border bg-white p-sm text-left',
+        'flex w-full items-start gap-xs rounded-sm border border-border bg-white p-sm text-left',
         onTap ? 'cursor-grab active:cursor-grabbing' : 'opacity-50',
       )}
     >
-      {step.imageUrl ? (
-        <StepThumbnail imageUrl={step.imageUrl} size={48} />
-      ) : (
-        <span className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
-          <GripVertical size={15} />
-        </span>
-      )}
-      <span className="flex-1 text-body-md font-semibold text-ink">{step.label}</span>
-      <GripVertical size={18} className="shrink-0 text-ink-muted" />
+      <span className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+        <GripVertical size={15} />
+      </span>
+      <span className="flex-1 text-body-md text-ink">{step.label}</span>
     </button>
   );
 }
