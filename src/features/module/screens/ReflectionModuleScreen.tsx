@@ -78,7 +78,11 @@ function ReflectionBody({
   ).length;
   const isComplete = openQuestions.length === 0 || answeredCount === openQuestions.length;
 
-  async function save(): Promise<boolean> {
+  // `silent` menekan alert sukses -- dipakai saat menyimpan sekalian lanjut
+  // (`proceed`), supaya tidak muncul toast "Jawaban tersimpan." tiap kali
+  // menekan "Selesai"/"Selanjutnya" (paritas dengan `_save(silent:)` di
+  // reflection_module_screen.dart).
+  async function save({ silent = false }: { silent?: boolean } = {}): Promise<boolean> {
     try {
       const updated = await saveEntries({
         reflectionContentId: current.id,
@@ -89,7 +93,9 @@ function ReflectionBody({
       }).unwrap();
       setCurrent(updated);
       if (isComplete) setSavedComplete(true);
-      void showAlert({ type: 'success', title: 'Berhasil', message: 'Jawaban tersimpan.' });
+      if (!silent) {
+        void showAlert({ type: 'success', title: 'Berhasil', message: 'Jawaban tersimpan.' });
+      }
       return true;
     } catch (err) {
       if (isApiError(err)) {
@@ -100,7 +106,7 @@ function ReflectionBody({
   }
 
   async function proceed() {
-    if (await save()) nav.onAdvance();
+    if (await save({ silent: true })) nav.onAdvance();
   }
 
   const sortedSections = [...current.sections].sort((a, b) => a.order - b.order);
