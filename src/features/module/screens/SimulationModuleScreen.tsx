@@ -3,11 +3,12 @@ import {
   ArrowRight,
   ArrowLeftRight,
   ArrowUpDown,
-  TriangleAlert,
   Trophy,
   Check,
   X,
   GripVertical,
+  CircleAlert,
+  Lightbulb,
 } from 'lucide-react';
 import { isApiError } from '@/api/apiError';
 import { useAlert } from '@/core/components/alert/useAlert';
@@ -15,7 +16,11 @@ import { cn } from '@/core/lib/cn';
 import { PrimaryButton } from '@/core/components/PrimaryButton';
 import { ModuleHeader } from '../components/ModuleHeader';
 import { ModulePageScaffold } from '../components/ModulePageScaffold';
-import { ModuleContinueButton, ModuleErrorScaffold, ModuleLoadingScaffold } from '../components/moduleChrome';
+import {
+  ModuleContinueButton,
+  ModuleErrorScaffold,
+  ModuleLoadingScaffold,
+} from '../components/moduleChrome';
 import {
   useCheckMatchingAnswerMutation,
   useCheckOrderingAnswerMutation,
@@ -124,11 +129,6 @@ const TYPE_LABEL: Record<SimulationGameType, string> = {
   ordering: 'Susun Jalur Solusi',
   unknown: 'Simulasi',
 };
-const KICKOFF_LABEL: Record<SimulationGameType, string> = {
-  matching: 'Situasi Dimulai',
-  ordering: 'Masalah Terjadi',
-  unknown: 'Simulasi Dimulai',
-};
 
 function ScenarioHeader({ type, scenario }: { type: SimulationGameType; scenario: string }) {
   return (
@@ -138,10 +138,6 @@ function ScenarioHeader({ type, scenario }: { type: SimulationGameType; scenario
         {TYPE_LABEL[type]}
       </span>
       <p className="text-center text-body-md text-ink">{scenario}</p>
-      <span className="inline-flex items-center gap-xxs rounded-pill border border-danger/30 bg-danger-soft px-md py-xs text-label-md font-bold text-danger">
-        <TriangleAlert size={15} />
-        {KICKOFF_LABEL[type]}
-      </span>
     </div>
   );
 }
@@ -225,12 +221,15 @@ function MatchingGame({
       <div className="h-sm" />
       {pairs.map((left, i) => {
         const right = rightItems[i]!;
+        const backgroundColor = matchPairColor(i);
         return (
           <div key={left.id} className="mb-sm flex items-stretch gap-sm">
             <MatchCard
               label={left.leftLabel}
               description={left.leftDescription}
               imageUrl={left.leftImageUrl}
+              backgroundColor={backgroundColor}
+              side="situation"
               solved={solved.has(left.id)}
               selected={selectedLeftId === left.id}
               onTap={
@@ -243,6 +242,8 @@ function MatchingGame({
               label={right.rightLabel}
               description={right.rightDescription}
               imageUrl={right.rightImageUrl}
+              backgroundColor={backgroundColor}
+              side="solution"
               solved={solved.has(right.id)}
               selected={false}
               onTap={solved.has(right.id) || checking ? undefined : () => void tryMatch(right.id)}
@@ -254,10 +255,30 @@ function MatchingGame({
   );
 }
 
+/**
+ * Warna latar kartu per pasangan, diulang jika pasangan lebih banyak dari
+ * jumlah warna. Kedua kartu (situasi & solusi) dalam satu baris berbagi
+ * warna yang sama supaya terasa sepasang, seperti pada mockup desain.
+ */
+const MATCH_PAIR_BACKGROUNDS = [
+  'bg-primary-soft',
+  'bg-warning-soft',
+  'bg-danger-soft',
+  'bg-success-soft',
+];
+
+function matchPairColor(index: number): string {
+  return MATCH_PAIR_BACKGROUNDS[index % MATCH_PAIR_BACKGROUNDS.length]!;
+}
+
+type MatchCardSide = 'situation' | 'solution';
+
 function MatchCard({
   label,
   description,
   imageUrl,
+  backgroundColor,
+  side,
   solved,
   selected,
   onTap,
@@ -265,42 +286,84 @@ function MatchCard({
   label: string;
   description: string | null;
   imageUrl: string | null;
+  backgroundColor: string;
+  side: MatchCardSide;
   solved: boolean;
   selected: boolean;
   onTap?: () => void;
 }) {
+  const isSituation = side === 'situation';
+  const thumbnail = imageUrl ? (
+    <StepThumbnail imageUrl={imageUrl} size={48} />
+  ) : (
+    <MatchThumbnailPlaceholder isSituation={isSituation} />
+  );
+  const content = (
+    <div className="flex min-w-0 flex-1 flex-col items-start text-left">
+      <MatchBadge label={label} isSituation={isSituation} />
+      {description ? (
+        <span className="mt-xxs line-clamp-4 text-body-sm text-ink-muted">{description}</span>
+      ) : null}
+    </div>
+  );
+
   return (
     <button
       type="button"
       onClick={onTap}
       disabled={!onTap}
       className={cn(
-        'relative flex flex-1 flex-col items-center rounded-lg border p-sm text-center',
+        'relative flex flex-1 items-start gap-sm rounded-lg border p-sm',
+        backgroundColor,
         solved
           ? 'border-success opacity-60'
           : selected
-            ? 'border-[1.6px] border-primary bg-primary-soft'
-            : 'border-border bg-white',
+            ? 'border-[1.6px] border-primary'
+            : 'border-border',
       )}
     >
-      {imageUrl ? (
-        <div className="mb-xs aspect-[16/10] w-full overflow-hidden rounded-sm bg-background">
-          <img
-            src={imageUrl}
-            alt=""
-            className="h-full w-full object-cover"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = 'none';
-            }}
-          />
-        </div>
-      ) : null}
-      <span className="text-body-md font-bold text-ink">{label}</span>
-      {description ? <span className="mt-xxs text-body-sm text-ink-muted">{description}</span> : null}
-      {solved ? (
-        <Check size={18} className="absolute right-6 top-6 text-success" />
-      ) : null}
+      {isSituation ? (
+        <>
+          {thumbnail}
+          {content}
+        </>
+      ) : (
+        <>
+          {content}
+          {thumbnail}
+        </>
+      )}
+      {solved ? <Check size={18} className="-right-0.5 -top-0.5 absolute text-success" /> : null}
     </button>
+  );
+}
+
+/**
+ * Badge kecil untuk label singkat ("Situasi 1", "Solusi A") -- merah untuk
+ * situasi (meniru chip "Skenario N" di mockup), biru untuk solusi.
+ */
+function MatchBadge({ label, isSituation }: { label: string; isSituation: boolean }) {
+  const Icon = isSituation ? CircleAlert : Lightbulb;
+  return (
+    <span
+      className={cn(
+        'gap-1 py-0.5 inline-flex max-w-full items-center rounded-pill px-xs text-label-sm font-bold',
+        isSituation ? 'bg-danger-soft text-danger' : 'bg-primary-soft text-primary',
+      )}
+    >
+      <Icon size={12} className="shrink-0" />
+      <span className="truncate">{label}</span>
+    </span>
+  );
+}
+
+/** Placeholder saat pasangan belum punya foto. */
+function MatchThumbnailPlaceholder({ isSituation }: { isSituation: boolean }) {
+  const Icon = isSituation ? CircleAlert : Lightbulb;
+  return (
+    <span className="flex h-48 w-48 shrink-0 items-center justify-center rounded-sm bg-white/60">
+      <Icon size={22} className="text-ink-muted" />
+    </span>
   );
 }
 
@@ -318,8 +381,8 @@ function OrderingGame({
   const showAlert = useAlert();
   const [checkOrdering] = useCheckOrderingAnswerMutation();
   const [pool, setPool] = useState<SimulationOrderingStep[]>(() => shuffled(steps));
-  const [placed, setPlaced] = useState<Array<SimulationOrderingStep | null>>(
-    () => Array<SimulationOrderingStep | null>(steps.length).fill(null),
+  const [placed, setPlaced] = useState<Array<SimulationOrderingStep | null>>(() =>
+    Array<SimulationOrderingStep | null>(steps.length).fill(null),
   );
   const [checking, setChecking] = useState(false);
 
@@ -413,7 +476,9 @@ function OrderingGame({
     <div className="flex flex-col items-stretch">
       {placed.map((step, i) => (
         <div key={i}>
-          {i > 0 ? <div className="mx-auto my-xs h-md w-0 border-l-2 border-dashed border-border" /> : null}
+          {i > 0 ? (
+            <div className="mx-auto my-xs h-md w-0 border-l-2 border-dashed border-border" />
+          ) : null}
           <OrderingSlot
             position={i + 1}
             step={step}
@@ -490,12 +555,13 @@ function OrderingSlot({
     >
       <span
         className={cn(
-          'flex h-24 w-24 shrink-0 items-center justify-center rounded-full text-label-sm font-bold text-white',
+          'h-24 w-24 flex shrink-0 items-center justify-center rounded-full text-label-sm font-bold text-white',
           filled ? 'bg-success' : 'bg-muted',
         )}
       >
         {position}
       </span>
+      {step?.imageUrl ? <StepThumbnail imageUrl={step.imageUrl} size={36} /> : null}
       <span
         className={cn(
           'line-clamp-2 flex-1 text-body-md',
@@ -513,13 +579,7 @@ function OrderingSlot({
   );
 }
 
-function PoolCard({
-  step,
-  onTap,
-}: {
-  step: SimulationOrderingStep;
-  onTap?: () => void;
-}) {
+function PoolCard({ step, onTap }: { step: SimulationOrderingStep; onTap?: () => void }) {
   return (
     <button
       type="button"
@@ -528,14 +588,36 @@ function PoolCard({
       onClick={onTap}
       disabled={!onTap}
       className={cn(
-        'flex w-full items-start gap-xs rounded-sm border border-border bg-white p-sm text-left',
+        'flex w-full items-start gap-sm rounded-sm border border-border bg-white p-sm text-left',
         onTap ? 'cursor-grab active:cursor-grabbing' : 'opacity-50',
       )}
     >
-      <span className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
-        <GripVertical size={15} />
-      </span>
-      <span className="flex-1 text-body-md text-ink">{step.label}</span>
+      {step.imageUrl ? (
+        <StepThumbnail imageUrl={step.imageUrl} size={48} />
+      ) : (
+        <span className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+          <GripVertical size={15} />
+        </span>
+      )}
+      <span className="flex-1 text-body-md font-semibold text-ink">{step.label}</span>
+      <GripVertical size={18} className="shrink-0 text-ink-muted" />
     </button>
+  );
+}
+
+/** Foto langkah dari backend, dipakai di kartu pool dan slot yang sudah terisi. */
+function StepThumbnail({ imageUrl, size }: { imageUrl: string; size: 36 | 48 }) {
+  const dimension = size === 36 ? 'h-36 w-36' : 'h-48 w-48';
+  return (
+    <span className={cn('shrink-0 overflow-hidden rounded-sm bg-background', dimension)}>
+      <img
+        src={imageUrl}
+        alt=""
+        className="h-full w-full object-cover"
+        onError={(e) => {
+          (e.currentTarget as HTMLImageElement).style.display = 'none';
+        }}
+      />
+    </span>
   );
 }
