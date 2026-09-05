@@ -19,8 +19,14 @@ export function SectorSurveyCard({ title, description, link, onComplete }: Secto
   const [busy, setBusy] = useState(false);
 
   function open() {
-    const win = window.open(link, '_blank', 'noopener,noreferrer');
+    // Jangan pakai fitur 'noopener' di sini: browser modern (Chrome/Firefox) selalu
+    // mengembalikan null dari window.open() ketika 'noopener' dipakai, walau tab-nya
+    // berhasil terbuka -- itu membuat pengecekan `if (win)` di bawah selalu gagal.
+    // Solusinya: buka tanpa 'noopener', lalu putus referensi opener secara manual
+    // supaya tetap aman dari reverse-tabnabbing tapi return value-nya valid.
+    const win = window.open(link, '_blank');
     if (win) {
+      win.opener = null;
       setOpened(true);
       return;
     }
