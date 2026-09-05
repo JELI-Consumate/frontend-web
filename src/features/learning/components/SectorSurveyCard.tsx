@@ -22,13 +22,20 @@ export function SectorSurveyCard({ title, description, link, onComplete }: Secto
     const win = window.open(link, '_blank', 'noopener,noreferrer');
     if (win) {
       setOpened(true);
-    } else {
-      void showAlert({
-        type: 'error',
-        title: 'Gagal Membuka Form',
-        message: 'Tidak bisa membuka link survei. Coba lagi.',
-      });
+      return;
     }
+
+    // window.open sering gagal (return null) di dalam WebView -- fallback ke
+    // klik anchor asli, yang biasanya tetap ditangani WebView lewat intent
+    // eksternal walau window.open() tidak.
+    const anchor = document.createElement('a');
+    anchor.href = link;
+    anchor.target = '_blank';
+    anchor.rel = 'noopener noreferrer';
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    setOpened(true);
   }
 
   async function confirm() {
