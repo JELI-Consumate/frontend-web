@@ -132,7 +132,9 @@ function ReflectionBody({
               <h2 className="text-display-sm text-black">
                 {current.closingTitle ?? 'Kata Penutup'}
               </h2>
-              <p className="mt-sm text-justify text-body-md text-ink">{current.closingMessage}</p>
+              <p className="mt-sm whitespace-pre-line text-justify text-body-md text-ink">
+                {current.closingMessage}
+              </p>
             </>
           ) : null}
         </div>
@@ -183,7 +185,9 @@ function SectionCard({
         <h3 className="pt-[6px] text-title-lg text-black">{section.title}</h3>
       </div>
       {section.instruction ? (
-        <p className="mt-sm text-body-sm text-ink-muted">{section.instruction}</p>
+        <p className="mt-sm whitespace-pre-line text-body-sm text-ink-muted">
+          {section.instruction}
+        </p>
       ) : null}
       <div className="mt-md flex flex-col gap-md">
         {[...section.questions]
@@ -218,7 +222,9 @@ function QuestionView({
 }) {
   return (
     <div className="flex flex-col items-stretch">
-      <p className="text-justify text-body-lg text-ink">{question.questionText}</p>
+      <p className="whitespace-pre-line text-justify text-body-lg text-ink">
+        {question.questionText}
+      </p>
       <div className="h-sm" />
       {question.questionType === 'checklist' ? (
         [...question.checklistItems]

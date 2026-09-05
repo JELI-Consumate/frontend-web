@@ -45,7 +45,7 @@ export function ModuleHeader({ module }: { module: ModuleDetail }) {
       </div>
       <h1 className="mt-sm text-display-sm text-primary">{module.title}</h1>
       {module.description ? (
-        <p className="mt-xs text-body-md text-ink">{module.description}</p>
+        <p className="mt-xs whitespace-pre-line text-body-md text-ink">{module.description}</p>
       ) : null}
     </div>
   );

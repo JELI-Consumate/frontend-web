@@ -93,7 +93,11 @@ function ArticleBlockView({
 }) {
   switch (block.blockType) {
     case 'paragraph':
-      return <p className="text-justify text-body-lg text-ink">{block.text ?? ''}</p>;
+      return (
+        <p className="whitespace-pre-line text-justify text-body-lg text-ink">
+          {block.text ?? ''}
+        </p>
+      );
     case 'image':
       return block.imageUrl ? (
         <div className="flex flex-col items-stretch">
@@ -109,11 +113,15 @@ function ArticleBlockView({
           <span className="flex h-28 w-28 shrink-0 items-center justify-center rounded-full bg-primary text-label-md font-bold text-white">
             {listItemNumber ?? 1}
           </span>
-          <p className="flex-1 text-justify text-body-lg text-ink">{block.text ?? ''}</p>
+          <p className="flex-1 whitespace-pre-line text-justify text-body-lg text-ink">
+            {block.text ?? ''}
+          </p>
         </div>
       );
     case 'reference':
-      return <p className="text-body-sm text-ink-muted">{block.text ?? ''}</p>;
+      return (
+        <p className="whitespace-pre-line text-body-sm text-ink-muted">{block.text ?? ''}</p>
+      );
     case 'unknown':
       return null;
   }

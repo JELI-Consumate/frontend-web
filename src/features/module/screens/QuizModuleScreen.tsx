@@ -157,9 +157,13 @@ function QuizRunner({
         <div className="p-screen">
           <QuestionProgress current={idx + 1} total={flat.length} />
           <div className="h-lg" />
-          <p className="text-justify text-body-lg text-ink">{question.question}</p>
+          <p className="whitespace-pre-line text-justify text-body-lg text-ink">
+            {question.question}
+          </p>
           {segment.instruction ? (
-            <p className="mt-sm text-body-sm text-ink-muted">{segment.instruction}</p>
+            <p className="mt-sm whitespace-pre-line text-body-sm text-ink-muted">
+              {segment.instruction}
+            </p>
           ) : null}
           <div className="h-md" />
           {checked && !isLikert ? (
@@ -312,7 +316,9 @@ function AnswerFeedback({
             Pembahasan
           </p>
           <div className="mt-xs rounded-md bg-primary-soft p-md">
-            <p className="text-justify text-body-md text-ink">{result.explanation}</p>
+            <p className="whitespace-pre-line text-justify text-body-md text-ink">
+              {result.explanation}
+            </p>
           </div>
         </>
       ) : null}
@@ -407,10 +413,12 @@ function ReviewCard({ item }: { item: QuizReviewItem }) {
         ) : (
           <XCircle size={18} className="shrink-0 text-danger" />
         )}
-        <p className="flex-1 text-body-lg font-semibold text-ink">{item.question}</p>
+        <p className="flex-1 whitespace-pre-line text-body-lg font-semibold text-ink">
+          {item.question}
+        </p>
       </div>
       {item.explanation ? (
-        <p className="mt-xs text-body-sm text-ink-muted">{item.explanation}</p>
+        <p className="mt-xs whitespace-pre-line text-body-sm text-ink-muted">{item.explanation}</p>
       ) : null}
     </div>
   );

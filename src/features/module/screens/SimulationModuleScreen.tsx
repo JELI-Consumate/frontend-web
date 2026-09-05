@@ -137,7 +137,7 @@ function ScenarioHeader({ type, scenario }: { type: SimulationGameType; scenario
         {type === 'matching' ? <ArrowLeftRight size={15} /> : <ArrowUpDown size={15} />}
         {TYPE_LABEL[type]}
       </span>
-      <p className="text-center text-body-md text-ink">{scenario}</p>
+      <p className="whitespace-pre-line text-center text-body-md text-ink">{scenario}</p>
     </div>
   );
 }

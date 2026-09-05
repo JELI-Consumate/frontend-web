@@ -49,7 +49,9 @@ export function VideoModuleScreen({ module, page, nav }: Props) {
         <div className="p-screen">
           <ModuleHeader module={module} />
           {content.description ? (
-            <p className="mt-sm text-justify text-body-md text-ink">{content.description}</p>
+            <p className="mt-sm whitespace-pre-line text-justify text-body-md text-ink">
+              {content.description}
+            </p>
           ) : null}
           <div className="h-lg" />
 
@@ -107,7 +109,7 @@ export function VideoModuleScreen({ module, page, nav }: Props) {
                 <Lightbulb className="shrink-0 text-primary" />
                 <div>
                   <p className="text-label-md font-bold text-primary">Pertanyaan Pemantik</p>
-                  <p className="mt-xxs text-justify text-body-md text-ink">
+                  <p className="mt-xxs whitespace-pre-line text-justify text-body-md text-ink">
                     {content.promptQuestion}
                   </p>
                 </div>
