@@ -1,4 +1,8 @@
 import '@testing-library/jest-dom/vitest';
 
-// Placeholder: suite Vitest + React Testing Library (mirror 99 widget test
-// Flutter) menyusul di iterasi berikutnya.
+// jsdom tidak mengimplementasikan Element.prototype.scrollTo -- dipakai
+// `ModulePageScaffold` (reset scroll body per halaman). Tanpa polyfill ini,
+// render layar modul 1-halaman melempar di test.
+if (!Element.prototype.scrollTo) {
+  Element.prototype.scrollTo = () => {};
+}
