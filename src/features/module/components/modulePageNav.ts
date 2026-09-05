@@ -9,6 +9,12 @@ export interface ModulePageNav {
   onDotTap?: (index: number) => void;
   hasNext: boolean;
   onAdvance: () => void;
+  /**
+   * Aksi tombol back di top bar. Selalu balik ke detail journey (padanan
+   * `Navigator.pop` ke `JourneyDetailScreen` di Android), bukan `history.back()`
+   * yang mati kalau modul dibuka langsung (refresh / deep link / notifikasi).
+   */
+  onBack?: () => void;
   /** Kalau true, chrome (top/bottom bar) digambar oleh induk, bukan tiap halaman. */
   chromeHoisted: boolean;
   /**

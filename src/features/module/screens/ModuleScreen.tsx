@@ -17,6 +17,7 @@ import { ReflectionModuleScreen } from './ReflectionModuleScreen';
 /** Padanan `module_screen.dart` (ModuleScreen + _ModuleContentRouter). */
 export function ModuleScreen() {
   const { journeyId = '', moduleId = '' } = useParams();
+  const navigate = useNavigate();
   const { data: module, isError } = useGetModuleQuery(moduleId);
   const { data: journeyDetail } = useGetJourneyDetailQuery(journeyId);
 
@@ -25,7 +26,9 @@ export function ModuleScreen() {
     [journeyDetail],
   );
 
-  if (isError) return <ModuleErrorScaffold />;
+  if (isError) {
+    return <ModuleErrorScaffold onBack={() => navigate(`/journey/${journeyId}`, { replace: true })} />;
+  }
   if (!module) return <ModuleLoadingScaffold />;
 
   return (
@@ -82,6 +85,14 @@ function ContentRouter({
     setCurrentPage(target);
   }, []);
 
+  // Tombol back modul -> selalu ke detail journey (padanan `Navigator.pop` ke
+  // `JourneyDetailScreen` di Android). `navigate(-1)` tidak dipakai karena mati
+  // saat modul dibuka langsung (refresh / deep link / notifikasi).
+  const goBack = useCallback(
+    () => navigate(`/journey/${journeyId}`, { replace: true }),
+    [navigate, journeyId],
+  );
+
   const finishModule = useCallback(() => {
     // Setara `ref.invalidate(journeyDetailProvider); ref.invalidate(primarySectorDetailProvider)`
     // (plus badges) yang Flutter jalankan tiap iterasi rantai modul.
@@ -125,15 +136,22 @@ function ContentRouter({
         onDotTap: hoisted ? goToPage : undefined,
         hasNext: index < pageCount - 1 || nextModuleId != null,
         onAdvance: () => handleAdvance(index, pageCount),
+        onBack: goBack,
         chromeHoisted: hoisted,
         footerSlot: hoisted ? footerSlot : null,
       };
     },
-    [modulePosition, moduleTotal, activePage, goToPage, nextModuleId, handleAdvance, footerSlot],
+    [modulePosition, moduleTotal, activePage, goToPage, nextModuleId, handleAdvance, goBack, footerSlot],
   );
 
   if (pages.length === 0) {
-    return <ModuleErrorScaffold title={module.title} message="Modul ini belum punya konten." />;
+    return (
+      <ModuleErrorScaffold
+        title={module.title}
+        message="Modul ini belum punya konten."
+        onBack={goBack}
+      />
+    );
   }
 
   if (pages.length === 1) {
@@ -142,7 +160,7 @@ function ContentRouter({
 
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden bg-background">
-      <ModuleTopBar position={modulePosition} total={moduleTotal} />
+      <ModuleTopBar position={modulePosition} total={moduleTotal} onBack={goBack} />
       <div className="min-h-0 flex-1">
         <div
           ref={trackRef}

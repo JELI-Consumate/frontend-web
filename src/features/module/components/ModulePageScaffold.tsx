@@ -53,7 +53,7 @@ export function ModulePageScaffold({
 
   return (
     <div className={`flex h-[100dvh] flex-col overflow-hidden ${backgroundClassName}`}>
-      <ModuleTopBar position={nav.modulePosition} total={nav.moduleTotal} />
+      <ModuleTopBar position={nav.modulePosition} total={nav.moduleTotal} onBack={nav.onBack} />
       <div ref={bodyRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         {body}
       </div>

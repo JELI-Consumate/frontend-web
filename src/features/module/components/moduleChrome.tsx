@@ -103,10 +103,18 @@ export function ModuleLoadingScaffold() {
   );
 }
 
-export function ModuleErrorScaffold({ title, message }: { title?: string; message?: string }) {
+export function ModuleErrorScaffold({
+  title,
+  message,
+  onBack,
+}: {
+  title?: string;
+  message?: string;
+  onBack?: () => void;
+}) {
   return (
     <div className="flex h-[100dvh] flex-col overflow-hidden bg-background">
-      <ModuleTopBar />
+      <ModuleTopBar onBack={onBack} />
       <div className="flex flex-1 flex-col items-center justify-center gap-sm p-screen text-center">
         <p className="text-title-lg text-black">{title}</p>
         <p className="text-body-sm text-ink-muted">
