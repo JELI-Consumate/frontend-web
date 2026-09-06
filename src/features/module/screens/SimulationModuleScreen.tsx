@@ -302,7 +302,7 @@ function MatchCard({
       <div className="flex flex-col items-start p-sm">
         <MatchBadge label={label} isSituation={isSituation} />
         {description ? (
-          <span className="mt-xxs line-clamp-4 text-body-sm text-ink-muted">{description}</span>
+          <span className="mt-xxs text-body-sm text-ink-muted">{description}</span>
         ) : null}
       </div>
       {solved ? <Check size={18} className="absolute right-6 top-6 text-success" /> : null}
@@ -324,7 +324,9 @@ function MatchBadge({ label, isSituation }: { label: string; isSituation: boolea
       )}
     >
       <Icon size={12} className="shrink-0" />
-      <span className="truncate">{label}</span>
+      {/* min-w-0 -- tanpa ini, label panjang di flex row bisa meluber ke luar
+          pill alih-alih membungkus (tanpa clamp, teksnya harus utuh & wrap). */}
+      <span className="min-w-0">{label}</span>
     </span>
   );
 }
@@ -525,10 +527,7 @@ function OrderingSlot({
       </span>
       {step?.imageUrl ? <StepThumbnail imageUrl={step.imageUrl} size={36} /> : null}
       <span
-        className={cn(
-          'line-clamp-2 flex-1 text-body-md',
-          filled ? 'text-ink' : 'italic text-ink-muted',
-        )}
+        className={cn('flex-1 text-body-md', filled ? 'text-ink' : 'italic text-ink-muted')}
       >
         {step?.label ?? 'Seret atau ketuk salah satu langkah di bawah'}
       </span>

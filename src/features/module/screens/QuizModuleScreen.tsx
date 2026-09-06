@@ -355,7 +355,7 @@ function LikertRow({
             </span>
             <span
               className={cn(
-                'mt-[2px] line-clamp-2 text-center text-label-sm',
+                'mt-[2px] text-center text-label-sm',
                 selected ? 'text-white/85' : 'text-ink-muted',
               )}
             >
