@@ -25,7 +25,9 @@ class TokenStorage {
     this.loaded = true;
     try {
       window.localStorage.setItem(KEY, token);
-    } catch {}
+    } catch (error) {
+      void error;
+    }
   }
 
   clear(): void {
@@ -33,7 +35,9 @@ class TokenStorage {
     this.loaded = true;
     try {
       window.localStorage.removeItem(KEY);
-    } catch {}
+    } catch (error) {
+      void error;
+    }
   }
 }
 

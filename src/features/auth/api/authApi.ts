@@ -173,7 +173,8 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
-        } catch {
+        } catch (error) {
+          void error;
         } finally {
           tokenStorage.clear();
           dispatch(signedOut());
