@@ -1,4 +1,3 @@
-/** Setara `frontend-android/lib/core/widgets/labeled_divider.dart`. */
 export function LabeledDivider({ label }: { label: string }) {
   return (
     <div className="flex items-center">

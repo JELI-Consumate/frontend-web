@@ -1,9 +1,5 @@
-import {
-  parseLearningProgress,
-  type LearningProgress,
-} from '@/core/model/learningStatus';
+import { parseLearningProgress, type LearningProgress } from '@/core/model/learningStatus';
 
-/** Padanan `frontend-android/lib/features/learning/data/models/journey.dart`. */
 export interface Journey {
   readonly id: string;
   readonly slug: string;

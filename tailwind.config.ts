@@ -1,15 +1,8 @@
 import type { Config } from 'tailwindcss';
 
-/**
- * Token-for-token dari `frontend-android/lib/core/theme/*`.
- * Warna *soft* / *muted* memakai alpha yang sama persis dengan
- * `Color.withValues(alpha: ...)` di Flutter.
- */
 const config: Config = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
-    // Skala jarak PERSIS `AppSpacing` (dalam px). Menimpa skala default
-    // supaya `p-md`, `gap-lg`, dst. selalu merujuk token, bukan angka Tailwind.
     spacing: {
       '0': '0px',
       px: '1px',
@@ -22,8 +15,7 @@ const config: Config = {
       xxl: '40px',
       xxxl: '56px',
       xxxxl: '64px',
-      screen: '24px', // AppSpacing.screenPadding
-      // beberapa ukuran mentah yang dipakai apa adanya di layout Flutter
+      screen: '24px',
       '2': '2px',
       '3': '3px',
       '6': '6px',
@@ -48,11 +40,11 @@ const config: Config = {
     },
     borderRadius: {
       none: '0px',
-      sm: '8px', // AppRadius.sm
-      md: '12px', // AppRadius.md
-      lg: '16px', // AppRadius.lg
-      xl: '24px', // AppRadius.xl
-      pill: '999px', // AppRadius.pill
+      sm: '8px',
+      md: '12px',
+      lg: '16px',
+      xl: '24px',
+      pill: '999px',
       full: '9999px',
     },
     colors: {
@@ -62,36 +54,40 @@ const config: Config = {
       primary: {
         DEFAULT: '#0037B0',
         pressed: '#002B8C',
-        soft: 'rgba(0, 55, 176, 0.08)', // primary @ 8%
+        soft: 'rgba(0, 55, 176, 0.08)',
       },
       ink: {
         DEFAULT: '#434655',
-        muted: 'rgba(67, 70, 85, 0.75)', // ink @ 75%
+        muted: 'rgba(67, 70, 85, 0.75)',
       },
       white: '#FFFFFF',
       black: '#000000',
       muted: '#C4C5D7',
       background: '#F8F9FF',
-      border: 'rgba(196, 197, 215, 0.5)', // muted @ 50%
+      border: 'rgba(196, 197, 215, 0.5)',
       danger: {
         DEFAULT: '#D1344B',
-        soft: 'rgba(209, 52, 75, 0.12)', // danger @ 12%
+        soft: 'rgba(209, 52, 75, 0.12)',
       },
       success: {
         DEFAULT: '#1E9E5A',
-        soft: 'rgba(30, 158, 90, 0.12)', // success @ 12%
+        soft: 'rgba(30, 158, 90, 0.12)',
       },
       warning: {
         DEFAULT: '#E9A23B',
-        soft: 'rgba(233, 162, 59, 0.12)', // warning @ 12%
+        soft: 'rgba(233, 162, 59, 0.12)',
       },
     },
     fontFamily: {
-      sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+      sans: [
+        '"Plus Jakarta Sans"',
+        'system-ui',
+        '-apple-system',
+        'Segoe UI',
+        'Roboto',
+        'sans-serif',
+      ],
     },
-    // Setiap entri = satu `AppTypography.*` (size / lineHeight-multiple /
-    // letterSpacing-px / weight). Warna default diterapkan lewat
-    // `core/theme/typography.ts` (setara `TextStyle.color`).
     fontSize: {
       'display-lg': ['30px', { lineHeight: '1.25', letterSpacing: '-0.6px', fontWeight: '800' }],
       'display-md': ['24px', { lineHeight: '1.3', letterSpacing: '-0.4px', fontWeight: '800' }],
@@ -109,17 +105,17 @@ const config: Config = {
     },
     extend: {
       boxShadow: {
-        card: '0 8px 24px rgba(0, 55, 176, 0.06)', // AppShadows.card
-        button: '0 6px 16px rgba(0, 55, 176, 0.28)', // AppShadows.button
-        navbar: '0 -4px 16px rgba(67, 70, 85, 0.08)', // AppShadows.navBar
+        card: '0 8px 24px rgba(0, 55, 176, 0.06)',
+        button: '0 6px 16px rgba(0, 55, 176, 0.28)',
+        navbar: '0 -4px 16px rgba(67, 70, 85, 0.08)',
       },
       transitionDuration: {
-        fast: '150ms', // AppDuration.fast
-        normal: '250ms', // AppDuration.normal
-        slow: '400ms', // AppDuration.slow
+        fast: '150ms',
+        normal: '250ms',
+        slow: '400ms',
       },
       maxWidth: {
-        app: '480px', // lebar konten "mobile-first" maksimum di layar besar
+        app: '480px',
       },
       keyframes: {
         'spin-slow': { to: { transform: 'rotate(360deg)' } },

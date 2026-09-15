@@ -1,4 +1,3 @@
-/** Padanan `content/video_content.dart`. */
 export interface VideoContent {
   readonly id: string;
   readonly title: string;

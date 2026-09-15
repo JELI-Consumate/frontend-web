@@ -8,7 +8,6 @@ import { useGoogleAuth } from '../hooks/useGoogleAuth';
 
 type Tab = 'login' | 'register';
 
-/** Padanan `auth_screen.dart`. */
 export function AuthScreen() {
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>('login');

@@ -15,7 +15,6 @@ interface Props {
   nav: ModulePageNav;
 }
 
-/** Padanan `article_module_screen.dart`. */
 export function ArticleModuleScreen({ module, page, nav }: Props) {
   const content = page.content.kind === 'article' ? page.content.content : null;
 
@@ -51,7 +50,11 @@ export function ArticleModuleScreen({ module, page, nav }: Props) {
       );
     }
     rendered.push(
-      <ArticleBlockView key={block.id} block={block} listItemNumber={listItemNumbers.get(block.id)} />,
+      <ArticleBlockView
+        key={block.id}
+        block={block}
+        listItemNumber={listItemNumbers.get(block.id)}
+      />,
       <div key={`${block.id}-gap`} className={isReference ? 'h-sm' : 'h-md'} />,
     );
   }
@@ -94,9 +97,7 @@ function ArticleBlockView({
   switch (block.blockType) {
     case 'paragraph':
       return (
-        <p className="whitespace-pre-line text-justify text-body-lg text-ink">
-          {block.text ?? ''}
-        </p>
+        <p className="whitespace-pre-line text-justify text-body-lg text-ink">{block.text ?? ''}</p>
       );
     case 'image':
       return block.imageUrl ? (
@@ -119,9 +120,7 @@ function ArticleBlockView({
         </div>
       );
     case 'reference':
-      return (
-        <p className="whitespace-pre-line text-body-sm text-ink-muted">{block.text ?? ''}</p>
-      );
+      return <p className="whitespace-pre-line text-body-sm text-ink-muted">{block.text ?? ''}</p>;
     case 'unknown':
       return null;
   }

@@ -4,13 +4,11 @@ import { cn } from '@/core/lib/cn';
 import { formatLongDateId } from '@/core/lib/dateFormat';
 
 interface AppDateFieldProps {
-  /** Nilai terpilih (tanpa waktu). */
   value: Date | null;
   onChange: (value: Date | null) => void;
   hintText: string;
   errorText?: string | null;
   disabled?: boolean;
-  /** Batas atas tanggal yang bisa dipilih (default: hari ini). */
   max?: Date;
   min?: Date;
 }
@@ -22,11 +20,6 @@ function toInputValue(date: Date | null): string {
   return `${date.getFullYear()}-${mm}-${dd}`;
 }
 
-/**
- * Field tanggal dengan tampilan sama seperti `AppTextField` tapi memakai
- * date-picker native (padanan `showDatePicker` di Flutter). Menampilkan
- * `d MMMM yyyy` (locale id-ID).
- */
 export function AppDateField({
   value,
   onChange,
@@ -45,16 +38,13 @@ export function AppDateField({
         className={cn(
           'relative flex items-center gap-xs rounded-md border px-md',
           disabled ? 'bg-background' : 'bg-white',
-          hasError ? 'border-danger' : 'border-border focus-within:border-[1.6px] focus-within:border-primary',
+          hasError
+            ? 'border-danger'
+            : 'border-border focus-within:border-[1.6px] focus-within:border-primary',
         )}
       >
         <CalendarDays size={20} className="shrink-0 text-muted" aria-hidden />
-        <span
-          className={cn(
-            'flex-1 py-md text-body-md',
-            value ? 'text-ink' : 'text-muted',
-          )}
-        >
+        <span className={cn('flex-1 py-md text-body-md', value ? 'text-ink' : 'text-muted')}>
           {value ? formatLongDateId(value) : hintText}
         </span>
         <input

@@ -4,7 +4,12 @@ import { useAppDispatch } from '@/app/hooks';
 import { baseApi } from '@/api/baseApi';
 import { useGetJourneyDetailQuery } from '@/features/learning/api/learningApi';
 import { useGetModuleQuery } from '../api/moduleApi';
-import { ModuleBottomBar, ModuleErrorScaffold, ModuleLoadingScaffold, ModuleTopBar } from '../components/moduleChrome';
+import {
+  ModuleBottomBar,
+  ModuleErrorScaffold,
+  ModuleLoadingScaffold,
+  ModuleTopBar,
+} from '../components/moduleChrome';
 import type { ModulePageNav } from '../components/modulePageNav';
 import type { ModuleDetail } from '../model/moduleDetail';
 import type { ModulePage } from '../model/modulePage';
@@ -14,30 +19,23 @@ import { QuizModuleScreen } from './QuizModuleScreen';
 import { SimulationModuleScreen } from './SimulationModuleScreen';
 import { ReflectionModuleScreen } from './ReflectionModuleScreen';
 
-/** Padanan `module_screen.dart` (ModuleScreen + _ModuleContentRouter). */
 export function ModuleScreen() {
   const { journeyId = '', moduleId = '' } = useParams();
   const navigate = useNavigate();
   const { data: module, isError } = useGetModuleQuery(moduleId);
   const { data: journeyDetail } = useGetJourneyDetailQuery(journeyId);
 
-  const moduleIds = useMemo(
-    () => journeyDetail?.modules.map((m) => m.id) ?? null,
-    [journeyDetail],
-  );
+  const moduleIds = useMemo(() => journeyDetail?.modules.map((m) => m.id) ?? null, [journeyDetail]);
 
   if (isError) {
-    return <ModuleErrorScaffold onBack={() => navigate(`/journey/${journeyId}`, { replace: true })} />;
+    return (
+      <ModuleErrorScaffold onBack={() => navigate(`/journey/${journeyId}`, { replace: true })} />
+    );
   }
   if (!module) return <ModuleLoadingScaffold />;
 
   return (
-    <ContentRouter
-      key={moduleId}
-      journeyId={journeyId}
-      module={module}
-      moduleIds={moduleIds}
-    />
+    <ContentRouter key={moduleId} journeyId={journeyId} module={module} moduleIds={moduleIds} />
   );
 }
 
@@ -56,8 +54,6 @@ function ContentRouter({
   const pages = module.pages;
 
   const [currentPage, setCurrentPage] = useState(0);
-  // Slot DOM tempat halaman aktif mem-`portal` footer-nya (mode chrome hoisted).
-  // Callback ref supaya pages re-render sekali begitu slot terpasang.
   const [footerSlot, setFooterSlot] = useState<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const pageScrollRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -75,8 +71,6 @@ function ContentRouter({
   }, [moduleIds, module.id]);
 
   const goToPage = useCallback((target: number) => {
-    // Halaman tujuan selalu mulai dari atas (bukan lanjut dari posisi scroll
-    // halaman sebelumnya).
     pageScrollRefs.current[target]?.scrollTo({ top: 0 });
     const track = trackRef.current;
     if (track && track.clientWidth > 0) {
@@ -85,17 +79,12 @@ function ContentRouter({
     setCurrentPage(target);
   }, []);
 
-  // Tombol back modul -> selalu ke detail journey (padanan `Navigator.pop` ke
-  // `JourneyDetailScreen` di Android). `navigate(-1)` tidak dipakai karena mati
-  // saat modul dibuka langsung (refresh / deep link / notifikasi).
   const goBack = useCallback(
     () => navigate(`/journey/${journeyId}`, { replace: true }),
     [navigate, journeyId],
   );
 
   const finishModule = useCallback(() => {
-    // Setara `ref.invalidate(journeyDetailProvider); ref.invalidate(primarySectorDetailProvider)`
-    // (plus badges) yang Flutter jalankan tiap iterasi rantai modul.
     dispatch(baseApi.util.invalidateTags(['JourneyDetail', 'SectorDetail', 'Badges']));
     const prevState = (location.state ?? {}) as Record<string, unknown>;
     if (nextModuleId) {
@@ -106,7 +95,10 @@ function ContentRouter({
     } else {
       navigate(`/journey/${journeyId}`, {
         replace: true,
-        state: { chainCompleted: true, wasCompletedBefore: prevState['wasCompletedBefore'] ?? false },
+        state: {
+          chainCompleted: true,
+          wasCompletedBefore: prevState['wasCompletedBefore'] ?? false,
+        },
       });
     }
   }, [dispatch, nextModuleId, navigate, journeyId, location.state]);
@@ -141,7 +133,16 @@ function ContentRouter({
         footerSlot: hoisted ? footerSlot : null,
       };
     },
-    [modulePosition, moduleTotal, activePage, goToPage, nextModuleId, handleAdvance, goBack, footerSlot],
+    [
+      modulePosition,
+      moduleTotal,
+      activePage,
+      goToPage,
+      nextModuleId,
+      handleAdvance,
+      goBack,
+      footerSlot,
+    ],
   );
 
   if (pages.length === 0) {

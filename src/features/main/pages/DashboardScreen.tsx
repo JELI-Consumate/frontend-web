@@ -21,7 +21,6 @@ import { SectorSurveyCard } from '@/features/learning/components/SectorSurveyCar
 import { ContinueLearningCard } from '../components/ContinueLearningCard';
 import { JourneyCard } from '../components/JourneyCard';
 
-/** Padanan `dashboard_screen.dart`. */
 export function DashboardScreen() {
   const user = useCurrentUser();
   const { data: detail, isLoading, isError } = usePrimarySectorDetail();
@@ -34,9 +33,7 @@ export function DashboardScreen() {
         <h1 className="text-[30px] font-extrabold leading-tight text-black">
           Halo, Selamat datang kembali <span className="text-primary">{user?.name ?? ''}!</span>
         </h1>
-        <p className="mt-xxs text-body-md text-ink">
-          Siap belajar perlindungan konsumen hari ini?
-        </p>
+        <p className="mt-xxs text-body-md text-ink">Siap belajar perlindungan konsumen hari ini?</p>
         <div className="h-md" />
         <JourneySearchField value={query} onChange={setQuery} onClear={() => setQuery('')} />
         <div className="h-lg" />
@@ -149,7 +146,6 @@ function ContinueLearningSection({ journeyId }: { journeyId: string }) {
   );
 }
 
-/** Kolom pencarian di Beranda -- khusus mencari journey berdasarkan judul. */
 function JourneySearchField({
   value,
   onChange,
@@ -183,7 +179,6 @@ function JourneySearchField({
   );
 }
 
-/** Hasil pencarian journey: filter `detail.journeys` berdasarkan judul. */
 function JourneySearchResults({
   query,
   detail,

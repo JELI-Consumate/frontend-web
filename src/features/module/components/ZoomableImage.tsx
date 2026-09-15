@@ -10,7 +10,6 @@ interface ZoomableImageProps {
   rounded?: boolean;
 }
 
-/** Padanan `zoomable_image.dart`: gambar konten, ketuk untuk lihat layar penuh. */
 export function ZoomableImage({ url, aspectRatio = 4 / 3, rounded = true }: ZoomableImageProps) {
   const [state, setState] = useState<'loading' | 'ok' | 'error'>('loading');
   const [full, setFull] = useState(false);
@@ -23,16 +22,16 @@ export function ZoomableImage({ url, aspectRatio = 4 / 3, rounded = true }: Zoom
         className={cn('block w-full overflow-hidden', rounded && 'rounded-lg')}
       >
         {state === 'error' ? (
-          <div
-            className="flex items-center justify-center bg-background"
-            style={{ aspectRatio }}
-          >
+          <div className="flex items-center justify-center bg-background" style={{ aspectRatio }}>
             <ImageOff className="text-muted" />
           </div>
         ) : (
           <>
             {state === 'loading' ? (
-              <div className="flex items-center justify-center bg-background" style={{ aspectRatio }}>
+              <div
+                className="flex items-center justify-center bg-background"
+                style={{ aspectRatio }}
+              >
                 <Spinner size={24} />
               </div>
             ) : null}

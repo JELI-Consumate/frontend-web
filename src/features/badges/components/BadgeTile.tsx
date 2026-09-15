@@ -6,7 +6,6 @@ import { BadgeAvatar } from './BadgeAvatar';
 import { BadgeDetailSheet } from './BadgeDetailSheet';
 import type { Badge } from '../model/badge';
 
-/** Padanan `badge_tile.dart`. */
 export function BadgeTile({ badge }: { badge: Badge }) {
   const [open, setOpen] = useState(false);
 

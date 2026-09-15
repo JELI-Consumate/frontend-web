@@ -6,7 +6,6 @@ interface AppTextFieldProps {
   value: string;
   onChange: (value: string) => void;
   hintText: string;
-  /** Ikon prefix (setara `icon` di Flutter). */
   icon: ComponentType<LucideProps>;
   type?: 'text' | 'email' | 'tel' | 'password' | 'number';
   errorText?: string | null;
@@ -14,19 +13,16 @@ interface AppTextFieldProps {
   disabled?: boolean;
   readOnly?: boolean;
   onClick?: () => void;
-  /** Ikon suffix statis (dipakai kalau bukan password). */
   suffixIcon?: ComponentType<LucideProps>;
   autoFocus?: boolean;
   autoComplete?: string;
   inputMode?: 'text' | 'email' | 'tel' | 'numeric';
   maxLength?: number;
-  /** Setara `inputFormatters`: bersihkan nilai sebelum diteruskan ke `onChange`. */
   sanitize?: (raw: string) => string;
   onSubmit?: () => void;
   name?: string;
 }
 
-/** Setara `frontend-android/lib/core/widgets/app_text_field.dart`. */
 export function AppTextField({
   value,
   onChange,

@@ -1,15 +1,13 @@
 import { parseApiDate } from '@/core/lib/dateFormat';
 
-/** Padanan `frontend-android/lib/features/learning/data/models/sector_survey.dart`. */
 export interface SectorSurvey {
   readonly link: string | null;
-  readonly completedAt: string | null; // ISO
+  readonly completedAt: string | null;
 }
 
 export const EMPTY_SECTOR_SURVEY: SectorSurvey = { link: null, completedAt: null };
 
-export const surveyIsConfigured = (s: SectorSurvey): boolean =>
-  s.link != null && s.link.length > 0;
+export const surveyIsConfigured = (s: SectorSurvey): boolean => s.link != null && s.link.length > 0;
 export const surveyIsCompleted = (s: SectorSurvey): boolean => s.completedAt != null;
 
 export function parseSectorSurvey(json: unknown): SectorSurvey {

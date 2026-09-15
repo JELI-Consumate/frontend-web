@@ -4,7 +4,6 @@ import { BadgeTile } from '../components/BadgeTile';
 import { useSectorBadges } from '../hooks/useSectorBadges';
 import type { Badge } from '../model/badge';
 
-/** Padanan `badges_screen.dart` (tab "Pencapaian"). */
 export function BadgesScreen() {
   const { data, isLoading, isError } = useSectorBadges();
 

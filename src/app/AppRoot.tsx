@@ -14,11 +14,6 @@ import { JourneyDetailScreen } from '@/features/learning/pages/JourneyDetailScre
 import { JourneyCelebrationScreen } from '@/features/learning/pages/JourneyCelebrationScreen';
 import { ModuleScreen } from '@/features/module/screens/ModuleScreen';
 
-/**
- * Padanan `app_root.dart`: gerbang berlapis
- * splash -> onboarding -> auth -> pilih sektor -> MainShell.
- * Keputusan tingkat atas berbasis state (bukan URL), sama seperti Flutter.
- */
 export function AppRoot() {
   useBootstrapAuth();
 

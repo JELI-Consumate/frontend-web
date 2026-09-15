@@ -13,7 +13,6 @@ interface RegisterFormProps {
   isGoogleLoading?: boolean;
 }
 
-/** Padanan `register_form.dart`. */
 export function RegisterForm({
   onSwitchToLogin,
   onGooglePressed,
@@ -104,11 +103,7 @@ export function RegisterForm({
         isLoading={isGoogleLoading}
       />
       <div className="h-xs" />
-      <AuthFooterLink
-        question="Sudah punya akun?"
-        action="Masuk di sini"
-        onTap={onSwitchToLogin}
-      />
+      <AuthFooterLink question="Sudah punya akun?" action="Masuk di sini" onTap={onSwitchToLogin} />
     </div>
   );
 }

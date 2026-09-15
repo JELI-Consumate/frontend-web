@@ -23,7 +23,6 @@ interface Props {
   nav: ModulePageNav;
 }
 
-/** Padanan `reflection_module_screen.dart`. */
 export function ReflectionModuleScreen({ module, page, nav }: Props) {
   const reflectionId = page.content.kind === 'reflection' ? page.content.content.id : '';
   const { data: content, isLoading, isError, error } = useGetReflectionQuery(reflectionId);
@@ -57,7 +56,6 @@ function ReflectionBody({
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [checklist, setChecklist] = useState<Record<string, boolean>>({});
 
-  // Hidrasi awal dari konten (setara `_hydrate`).
   useEffect(() => {
     const a: Record<string, string> = {};
     const c: Record<string, boolean> = {};
@@ -73,22 +71,14 @@ function ReflectionBody({
   }, [content]);
 
   const openQuestions = useMemo(() => reflectionOpenQuestions(current), [current]);
-  const answeredCount = openQuestions.filter(
-    (q) => (answers[q.id] ?? '').trim().length > 0,
-  ).length;
+  const answeredCount = openQuestions.filter((q) => (answers[q.id] ?? '').trim().length > 0).length;
   const isComplete = openQuestions.length === 0 || answeredCount === openQuestions.length;
 
-  // `silent` menekan alert sukses -- dipakai saat menyimpan sekalian lanjut
-  // (`proceed`), supaya tidak muncul toast "Jawaban tersimpan." tiap kali
-  // menekan "Selesai"/"Selanjutnya" (paritas dengan `_save(silent:)` di
-  // reflection_module_screen.dart).
   async function save({ silent = false }: { silent?: boolean } = {}): Promise<boolean> {
     try {
       const updated = await saveEntries({
         reflectionContentId: current.id,
-        answers: Object.fromEntries(
-          Object.entries(answers).map(([k, v]) => [k, v.trim()]),
-        ),
+        answers: Object.fromEntries(Object.entries(answers).map(([k, v]) => [k, v.trim()])),
         checklistAnswers: { ...checklist },
       }).unwrap();
       setCurrent(updated);

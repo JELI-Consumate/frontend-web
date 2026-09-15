@@ -5,7 +5,6 @@ import { AppTextField } from '@/core/components/AppTextField';
 import { PrimaryButton } from '@/core/components/PrimaryButton';
 import { useForgotPasswordForm } from '../hooks/useForgotPasswordForm';
 
-/** Padanan `forgot_password_screen.dart`. */
 export function ForgotPasswordScreen() {
   const navigate = useNavigate();
   const form = useForgotPasswordForm();
@@ -54,9 +53,7 @@ export function ForgotPasswordScreen() {
             <PrimaryButton
               label="Sudah Punya Kode?"
               trailingIcon={null}
-              onPressed={() =>
-                navigate('/auth/reset', { state: { email: form.email.trim() } })
-              }
+              onPressed={() => navigate('/auth/reset', { state: { email: form.email.trim() } })}
             />
             <div className="h-sm" />
             <button

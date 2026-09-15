@@ -10,10 +10,7 @@ import { httpClient } from '@/api/httpClient';
 import { AlertProvider } from '@/core/components/alert/AlertProvider';
 import { authReducer, setUser, markBootstrapped } from '@/features/auth/state/authSlice';
 import { onboardingReducer, finishOnboarding } from '@/features/onboarding/state/onboardingSlice';
-import {
-  activeSectorReducer,
-  selectSector,
-} from '@/features/onboarding/state/activeSectorSlice';
+import { activeSectorReducer, selectSector } from '@/features/onboarding/state/activeSectorSlice';
 import { mainTabReducer } from '@/features/main/state/mainTabSlice';
 import type { AppUser } from '@/features/auth/model/appUser';
 
@@ -45,14 +42,18 @@ export const TEST_USER: AppUser = {
 interface RenderOptions {
   store?: TestStore;
   route?: string;
-  /** Seed sesi login + sektor aktif + onboarding selesai. */
   authenticated?: boolean;
   activeSectorSlug?: string;
 }
 
 export function renderWithProviders(
   ui: ReactElement,
-  { store = makeTestStore(), route = '/', authenticated = true, activeSectorSlug = 'e-commerce' }: RenderOptions = {},
+  {
+    store = makeTestStore(),
+    route = '/',
+    authenticated = true,
+    activeSectorSlug = 'e-commerce',
+  }: RenderOptions = {},
 ) {
   store.dispatch(markBootstrapped());
   store.dispatch(finishOnboarding());
@@ -74,10 +75,8 @@ export function renderWithProviders(
   return { store, ...render(ui, { wrapper: Wrapper }) };
 }
 
-/** MockAdapter yang menempel ke `httpClient`. Panggil `.restore()` di afterEach. */
 export function mockHttp(): MockAdapter {
   return new MockAdapter(httpClient, { onNoMatch: 'throwException' });
 }
 
-/** Bungkus payload seperti amplop backend `{ data: ... }`. */
 export const envelope = <T,>(data: T) => ({ data });

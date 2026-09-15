@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { CalendarDays, CheckCircle2, AlertCircle, LogOut, Camera, Pencil, Check } from 'lucide-react';
+import {
+  CalendarDays,
+  CheckCircle2,
+  AlertCircle,
+  LogOut,
+  Camera,
+  Pencil,
+  Check,
+} from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { isApiError } from '@/api/apiError';
 import { useAlert } from '@/core/components/alert/useAlert';
@@ -12,7 +20,6 @@ import { useCurrentUser } from '@/features/auth/hooks/useAuthState';
 import { useLogoutMutation, useUpdateProfileMutation } from '@/features/auth/api/authApi';
 import { isEmailVerified } from '@/features/auth/model/appUser';
 
-/** Padanan `profile_screen.dart`. */
 export function ProfileScreen() {
   const user = useCurrentUser();
   const showAlert = useAlert();

@@ -1,4 +1,3 @@
-/** Padanan `quiz_attempt.dart`. */
 function int(value: unknown): number | null {
   return typeof value === 'number' ? Math.trunc(value) : null;
 }
@@ -60,9 +59,7 @@ export interface QuizAnswerCheckResult {
   readonly attempt: QuizAttempt;
 }
 
-export function parseQuizAnswerCheckResult(
-  json: Record<string, unknown>,
-): QuizAnswerCheckResult {
+export function parseQuizAnswerCheckResult(json: Record<string, unknown>): QuizAnswerCheckResult {
   return {
     correct: (json['correct'] as boolean | undefined) ?? null,
     correctOptionId: (json['correct_option_id'] as string | undefined) ?? null,

@@ -6,7 +6,6 @@ interface SegmentedTabsProps {
   onChange: (index: number) => void;
 }
 
-/** Setara `frontend-android/lib/core/widgets/segmented_tabs.dart`. */
 export function SegmentedTabs({ labels, activeIndex, onChange }: SegmentedTabsProps) {
   return (
     <div className="flex" role="tablist">

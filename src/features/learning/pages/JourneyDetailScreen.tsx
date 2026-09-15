@@ -7,20 +7,18 @@ import { isCompleted } from '@/core/model/learningStatus';
 import { useGetBadgesQuery } from '@/features/badges/api/badgeApi';
 import { useGetJourneyDetailQuery } from '../api/learningApi';
 import { usePrimarySectorDetail } from '../hooks/usePrimarySectorDetail';
-import {
-  completedModuleCount,
-  currentModule,
-  type JourneyDetail,
-} from '../model/journeyDetail';
+import { completedModuleCount, currentModule, type JourneyDetail } from '../model/journeyDetail';
 import { computeJourneyCelebration } from '../model/journeyCompletion';
 import { ModuleRow } from '../components/ModuleRow';
 
-/** Padanan `journey_detail_screen.dart`. */
 export function JourneyDetailScreen() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const navState = (location.state ?? {}) as { chainCompleted?: boolean; wasCompletedBefore?: boolean };
+  const navState = (location.state ?? {}) as {
+    chainCompleted?: boolean;
+    wasCompletedBefore?: boolean;
+  };
 
   const journeyQuery = useGetJourneyDetailQuery(id);
   const badgesQuery = useGetBadgesQuery(undefined, { skip: !navState.chainCompleted });
@@ -28,7 +26,6 @@ export function JourneyDetailScreen() {
 
   const celebrationHandled = useRef(false);
 
-  // Setara akhir `_openModule`: sesudah rantai modul, cek "journey baru tuntas".
   useEffect(() => {
     if (!navState.chainCompleted || celebrationHandled.current) return;
     const journeyDetail = journeyQuery.data;
@@ -71,9 +68,7 @@ export function JourneyDetailScreen() {
         </div>
       ) : journeyQuery.isError || !journeyQuery.data ? (
         <div className="p-screen pt-xxl text-center">
-          <p className="text-body-sm text-ink-muted">
-            Gagal memuat journey ini. Coba lagi nanti.
-          </p>
+          <p className="text-body-sm text-ink-muted">Gagal memuat journey ini. Coba lagi nanti.</p>
           <button
             type="button"
             onClick={() => void journeyQuery.refetch()}

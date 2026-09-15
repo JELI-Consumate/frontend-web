@@ -1,4 +1,3 @@
-/** Padanan `content/quiz_content.dart`. */
 export type QuizSegmentType = 'multiple_choice' | 'likert' | 'unknown';
 
 export function parseQuizSegmentType(value: unknown): QuizSegmentType {

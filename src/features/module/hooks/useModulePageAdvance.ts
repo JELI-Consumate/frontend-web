@@ -4,10 +4,6 @@ import { useAlert } from '@/core/components/alert/useAlert';
 import { useCompleteModulePageMutation } from '../api/moduleApi';
 import type { ModulePageNav } from '../components/modulePageNav';
 
-/**
- * Padanan mixin `ModulePageAdvance` di frontend-android: "tandai halaman selesai
- * lalu lanjut", dipakai layar modul artikel & video.
- */
 export function useModulePageAdvance() {
   const showAlert = useAlert();
   const [completeModulePage] = useCompleteModulePageMutation();

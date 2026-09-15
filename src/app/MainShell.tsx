@@ -20,14 +20,12 @@ const NAV_ITEMS: NavItem[] = [
   { icon: User, label: 'Profil' },
 ];
 
-/** Padanan `main_shell.dart` (IndexedStack + bottom nav). */
 export function MainShell() {
   const dispatch = useAppDispatch();
   const index = useAppSelector((s) => s.mainTab.index);
 
   return (
     <div className="flex min-h-full flex-col bg-background">
-      {/* IndexedStack: keempat tab tetap terpasang, hanya yang aktif terlihat. */}
       <div className="flex-1 overflow-y-auto pb-xxxxl">
         <div className={cn(index !== 0 && 'hidden')}>
           <DashboardScreen />

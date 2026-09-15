@@ -10,7 +10,6 @@ interface JourneyCardProps {
   lockReason?: string | null;
 }
 
-/** Padanan `journey_card.dart`. */
 export function JourneyCard({
   journey,
   label,
@@ -49,9 +48,7 @@ export function JourneyCard({
               <>
                 <div className="flex items-center gap-xxs">
                   <Clock size={14} className="text-ink-muted" />
-                  <span className="text-body-sm text-ink-muted">
-                    {journey.modulesCount} Materi
-                  </span>
+                  <span className="text-body-sm text-ink-muted">{journey.modulesCount} Materi</span>
                 </div>
                 <div className="h-sm" />
                 <ProgressBar percent={journey.progress.percent} />
@@ -66,12 +63,10 @@ export function JourneyCard({
 
 function Thumbnail({ imageUrl, locked }: { imageUrl: string | null; locked: boolean }) {
   return (
-    // Cover journey rasio 2:3 (potrait). Lebar tetap 76, tinggi mengikuti.
     <div className="flex aspect-[2/3] w-76 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary-soft">
       {locked ? (
         <Lock className="text-ink-muted" />
       ) : imageUrl ? (
-        // `object-contain` -- rasio non-2:3 dimuat utuh, tidak ke-crop.
         <img src={imageUrl} alt="" className="h-full w-full object-contain" />
       ) : (
         <img src="/images/journey_illustration.svg" alt="" className="p-xs" />

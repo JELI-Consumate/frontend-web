@@ -1,6 +1,5 @@
 import { Hammer } from 'lucide-react';
 
-/** Penanda sementara untuk layar yang belum diport (iterasi berikutnya). */
 export function PlaceholderNotice({ title, note }: { title: string; note?: string }) {
   return (
     <div className="flex min-h-full flex-col bg-background">

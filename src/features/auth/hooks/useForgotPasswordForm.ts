@@ -4,7 +4,6 @@ import { useForgotPasswordMutation } from '../api/authApi';
 import { presentAuthError } from '../lib/authErrorMapper';
 import { EMAIL_PATTERN } from '../lib/validators';
 
-/** Padanan `_ForgotPasswordScreenState`. */
 export function useForgotPasswordForm() {
   const showAlert = useAlert();
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();

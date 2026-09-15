@@ -1,21 +1,11 @@
-import {
-  parseLearningStatus,
-  type LearningStatus,
-} from '@/core/model/learningStatus';
+import { parseLearningStatus, type LearningStatus } from '@/core/model/learningStatus';
 import { makeApiError } from '@/api/apiError';
 import { parseArticleContent, type ArticleContent } from './content/articleContent';
 import { parseVideoContent, type VideoContent } from './content/videoContent';
 import { parseQuizContent, type QuizContent } from './content/quizContent';
-import {
-  parseReflectionContent,
-  type ReflectionContent,
-} from './content/reflectionContent';
-import {
-  parseSimulationContent,
-  type SimulationContent,
-} from './content/simulationContent';
+import { parseReflectionContent, type ReflectionContent } from './content/reflectionContent';
+import { parseSimulationContent, type SimulationContent } from './content/simulationContent';
 
-/** Padanan `content_type` enum. */
 export type ContentType = 'video' | 'article' | 'quiz' | 'simulation' | 'reflection' | 'unknown';
 
 export function parseContentType(value: unknown): ContentType {
@@ -31,7 +21,6 @@ export function parseContentType(value: unknown): ContentType {
   }
 }
 
-/** Padanan `sealed class ModulePageContent` → union bertag. */
 export type ModulePageContent =
   | { readonly kind: 'video'; readonly content: VideoContent }
   | { readonly kind: 'article'; readonly content: ArticleContent }

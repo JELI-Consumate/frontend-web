@@ -2,7 +2,6 @@ import { isCompleted } from '@/core/model/learningStatus';
 import { parseJourney, type Journey } from './journey';
 import { parseLearningModule, type LearningModule } from './learningModule';
 
-/** Padanan `frontend-android/lib/features/learning/data/models/journey_detail.dart`. */
 export interface JourneyDetail {
   readonly journey: Journey;
   readonly modules: LearningModule[];

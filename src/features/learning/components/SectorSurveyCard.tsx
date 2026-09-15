@@ -12,18 +12,12 @@ interface SectorSurveyCardProps {
   onComplete: () => Promise<void>;
 }
 
-/** Padanan `sector_survey_card.dart`. */
 export function SectorSurveyCard({ title, description, link, onComplete }: SectorSurveyCardProps) {
   const showAlert = useAlert();
   const [opened, setOpened] = useState(false);
   const [busy, setBusy] = useState(false);
 
   function open() {
-    // Jangan pakai fitur 'noopener' di sini: browser modern (Chrome/Firefox) selalu
-    // mengembalikan null dari window.open() ketika 'noopener' dipakai, walau tab-nya
-    // berhasil terbuka -- itu membuat pengecekan `if (win)` di bawah selalu gagal.
-    // Solusinya: buka tanpa 'noopener', lalu putus referensi opener secara manual
-    // supaya tetap aman dari reverse-tabnabbing tapi return value-nya valid.
     const win = window.open(link, '_blank');
     if (win) {
       win.opener = null;
@@ -31,9 +25,6 @@ export function SectorSurveyCard({ title, description, link, onComplete }: Secto
       return;
     }
 
-    // window.open sering gagal (return null) di dalam WebView -- fallback ke
-    // klik anchor asli, yang biasanya tetap ditangani WebView lewat intent
-    // eksternal walau window.open() tidak.
     const anchor = document.createElement('a');
     anchor.href = link;
     anchor.target = '_blank';

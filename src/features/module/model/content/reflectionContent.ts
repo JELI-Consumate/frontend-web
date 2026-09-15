@@ -1,4 +1,3 @@
-/** Padanan `content/reflection_content.dart`. */
 export type ReflectionQuestionType = 'open_question' | 'checklist' | 'unknown';
 
 export function parseReflectionQuestionType(value: unknown): ReflectionQuestionType {
@@ -88,7 +87,6 @@ export function parseReflectionContent(json: Record<string, unknown>): Reflectio
   };
 }
 
-/** Setara getter `openQuestions`. */
 export function reflectionOpenQuestions(content: ReflectionContent): ReflectionQuestion[] {
   return content.sections
     .flatMap((s) => s.questions)

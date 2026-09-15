@@ -3,7 +3,6 @@ import { AlertProvider } from '@/core/components/alert/AlertProvider';
 import { AppRoot } from '@/app/AppRoot';
 import { GOOGLE_CLIENT_ID } from '@/features/auth/hooks/useGoogleAuth';
 
-/** Padanan `MyApp` di `main.dart`. Shell mobile-first: lebar konten dibatasi. */
 export function App() {
   return (
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID || 'unconfigured.apps.googleusercontent.com'}>

@@ -1,12 +1,11 @@
 import { parseApiDate } from '@/core/lib/dateFormat';
 
-/** Padanan `frontend-android/lib/features/auth/data/models/app_user.dart`. */
 export interface AppUser {
   readonly id: string;
   readonly name: string;
   readonly email: string;
   readonly phone: string | null;
-  readonly dateOfBirth: string | null; // ISO; disimpan sebagai string agar aman di Redux
+  readonly dateOfBirth: string | null;
   readonly avatarUrl: string | null;
   readonly emailVerifiedAt: string | null;
 }

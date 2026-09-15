@@ -7,7 +7,6 @@ import { EMAIL_PATTERN, PASSWORD_MISMATCH_MESSAGE } from '../lib/validators';
 
 const KNOWN_FIELDS = ['name', 'email', 'phone', 'date_of_birth', 'password'] as const;
 
-/** Padanan `_RegisterFormState` di `register_form.dart`. */
 export function useRegisterForm() {
   const navigate = useNavigate();
   const showAlert = useAlert();
@@ -53,8 +52,7 @@ export function useRegisterForm() {
     if (password.length === 0) next.password = 'Kata sandi wajib diisi.';
     else if (password.length < 8) next.password = 'Kata sandi minimal 8 karakter.';
 
-    if (passwordConfirmation !== password)
-      next.password_confirmation = PASSWORD_MISMATCH_MESSAGE;
+    if (passwordConfirmation !== password) next.password_confirmation = PASSWORD_MISMATCH_MESSAGE;
 
     return next;
   }

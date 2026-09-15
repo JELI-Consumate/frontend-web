@@ -5,7 +5,6 @@ import { OtpBoxInput } from '../components/OtpBoxInput';
 import { useOtpVerification } from '../hooks/useOtpVerification';
 import { OTP_LENGTH } from '../lib/validators';
 
-/** Padanan `otp_verification_screen.dart`. */
 export function OtpVerificationScreen() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,8 +28,8 @@ function OtpVerificationBody({ email, onBack }: { email: string; onBack: () => v
         <div className="h-xs" />
         <p className="text-center text-body-sm text-ink-muted">
           Kami sudah mengirim kode {OTP_LENGTH} digit ke{' '}
-          <span className="font-bold text-ink">{email}</span>. Masukkan kode itu untuk
-          mengaktifkan akunmu.
+          <span className="font-bold text-ink">{email}</span>. Masukkan kode itu untuk mengaktifkan
+          akunmu.
         </p>
         <div className="h-xl" />
         <OtpBoxInput
@@ -66,11 +65,7 @@ function OtpVerificationBody({ email, onBack }: { email: string; onBack: () => v
             : 'Kirim Ulang Kode'}
         </button>
         <div className="h-lg" />
-        <button
-          type="button"
-          onClick={onBack}
-          className="px-md py-xs text-body-sm text-ink-muted"
-        >
+        <button type="button" onClick={onBack} className="px-md py-xs text-body-sm text-ink-muted">
           Kembali
         </button>
       </div>

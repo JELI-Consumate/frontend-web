@@ -5,7 +5,6 @@ import { AppTextField } from '@/core/components/AppTextField';
 import { PrimaryButton } from '@/core/components/PrimaryButton';
 import { useResetPasswordForm } from '../hooks/useResetPasswordForm';
 
-/** Padanan `reset_password_screen.dart`. */
 export function ResetPasswordScreen() {
   const location = useLocation();
   const initialEmail = (location.state as { email?: string } | null)?.email;

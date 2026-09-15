@@ -1,8 +1,3 @@
-/**
- * Padanan `frontend-android/lib/core/models/learning_status.dart`.
- * Kosakata progres bersama seluruh domain belajar (sector, journey, module,
- * module page). Di `core/` karena dipakai lintas fitur `learning` & `module`.
- */
 export type LearningStatus = 'not_started' | 'in_progress' | 'completed';
 
 export const LearningStatus = {

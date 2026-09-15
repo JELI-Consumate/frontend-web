@@ -1,4 +1,3 @@
-/** Pola & pesan validasi form auth — sama persis dengan frontend-android. */
 export const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 export const OTP_LENGTH = 6;

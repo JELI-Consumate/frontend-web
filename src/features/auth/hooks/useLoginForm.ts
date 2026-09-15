@@ -8,7 +8,6 @@ import { EMAIL_PATTERN } from '../lib/validators';
 
 const KNOWN_FIELDS = ['email', 'password'] as const;
 
-/** Padanan `_LoginFormState` di `login_form.dart`. */
 export function useLoginForm() {
   const navigate = useNavigate();
   const showAlert = useAlert();
@@ -35,7 +34,6 @@ export function useLoginForm() {
     const trimmed = email.trim();
     try {
       await login({ email: trimmed, password }).unwrap();
-      // sukses -> AuthController men-set user -> AppRoot pindah layar.
     } catch (error) {
       if (isApiError(error) && isEmailNotVerified(error)) {
         navigate('/auth/otp', { state: { email: trimmed } });

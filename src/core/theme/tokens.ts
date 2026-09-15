@@ -1,8 +1,3 @@
-/**
- * Nilai token mentah dari `frontend-android/lib/core/theme/*`, untuk tempat yang
- * butuh angka/warna sebagai nilai JS (mis. hitung `LinearProgressIndicator`,
- * warna sektor dinamis dari DB). Untuk styling biasa pakai kelas Tailwind.
- */
 export const colors = {
   primary: '#0037B0',
   primaryPressed: '#002B8C',
@@ -16,7 +11,6 @@ export const colors = {
   warning: '#E9A23B',
 } as const;
 
-/** `AppColors.*` yang beralpha (dipakai kalau perlu string rgba eksplisit). */
 export const alphaColors = {
   primarySoft: 'rgba(0, 55, 176, 0.08)',
   dangerSoft: 'rgba(209, 52, 75, 0.12)',
@@ -26,7 +20,6 @@ export const alphaColors = {
   border: 'rgba(196, 197, 215, 0.5)',
 } as const;
 
-/** `AppSpacing` dalam px (angka). */
 export const spacing = {
   xxs: 4,
   xs: 8,
@@ -40,7 +33,6 @@ export const spacing = {
   screenPadding: 24,
 } as const;
 
-/** `AppRadius` dalam px. */
 export const radius = {
   sm: 8,
   md: 12,
@@ -49,7 +41,6 @@ export const radius = {
   pill: 999,
 } as const;
 
-/** `AppDuration` dalam ms. */
 export const duration = {
   fast: 150,
   normal: 250,

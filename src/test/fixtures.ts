@@ -1,8 +1,3 @@
-/**
- * Bentuk JSON persis seperti balikan backend (snake_case, isi `data`).
- * Dipakai lewat `envelope(...)` di test.
- */
-
 export const journeyJson = (over: Record<string, unknown> = {}) => ({
   id: 'j1',
   slug: 'kenali-hakmu',
@@ -26,14 +21,15 @@ export const sectorDetailJson = (over: Record<string, unknown> = {}) => ({
   color: null,
   order: 1,
   progress: { status: 'in_progress', percent: 10 },
-  surveys: { pretest: { link: null, completed_at: null }, posttest: { link: null, completed_at: null } },
+  surveys: {
+    pretest: { link: null, completed_at: null },
+    posttest: { link: null, completed_at: null },
+  },
   journeys: [journeyJson()],
   ...over,
 });
 
-export const sectorsListJson = () => [
-  { ...sectorDetailJson(), journeys: undefined },
-];
+export const sectorsListJson = () => [{ ...sectorDetailJson(), journeys: undefined }];
 
 export const moduleDetailJson = (over: Record<string, unknown> = {}) => ({
   id: 'm1',
@@ -51,7 +47,14 @@ export const moduleDetailJson = (over: Record<string, unknown> = {}) => ({
         id: 'ac1',
         title: 'Hak Dasar',
         blocks: [
-          { id: 'b1', block_type: 'paragraph', text_article: 'Konsumen berhak atas keamanan.', image_url: null, alt_text: null, order: 1 },
+          {
+            id: 'b1',
+            block_type: 'paragraph',
+            text_article: 'Konsumen berhak atas keamanan.',
+            image_url: null,
+            alt_text: null,
+            order: 1,
+          },
         ],
       },
     },
@@ -75,7 +78,14 @@ export const twoPageArticleModuleJson = () => ({
         id: 'ac1',
         title: 'Bagian 1',
         blocks: [
-          { id: 'b1', block_type: 'paragraph', text_article: 'Isi halaman satu.', image_url: null, alt_text: null, order: 1 },
+          {
+            id: 'b1',
+            block_type: 'paragraph',
+            text_article: 'Isi halaman satu.',
+            image_url: null,
+            alt_text: null,
+            order: 1,
+          },
         ],
       },
     },
@@ -88,7 +98,14 @@ export const twoPageArticleModuleJson = () => ({
         id: 'ac2',
         title: 'Bagian 2',
         blocks: [
-          { id: 'b2', block_type: 'paragraph', text_article: 'Isi halaman dua.', image_url: null, alt_text: null, order: 1 },
+          {
+            id: 'b2',
+            block_type: 'paragraph',
+            text_article: 'Isi halaman dua.',
+            image_url: null,
+            alt_text: null,
+            order: 1,
+          },
         ],
       },
     },

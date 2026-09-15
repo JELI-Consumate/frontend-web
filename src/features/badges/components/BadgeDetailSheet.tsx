@@ -5,7 +5,6 @@ import { formatLongDateId } from '@/core/lib/dateFormat';
 import { BadgeAvatar } from './BadgeAvatar';
 import type { Badge } from '../model/badge';
 
-/** Padanan `badge_detail_sheet.dart` (`showBadgeDetailSheet`). */
 export function BadgeDetailSheet({ badge, onClose }: { badge: Badge; onClose: () => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();

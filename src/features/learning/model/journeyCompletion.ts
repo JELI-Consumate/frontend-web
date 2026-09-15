@@ -3,7 +3,6 @@ import type { Badge } from '@/features/badges/model/badge';
 import { completedModuleCount, type JourneyDetail } from './journeyDetail';
 import type { SectorDetail } from './sectorDetail';
 
-/** Padanan `JourneyCelebrationData` di `journey_completion.dart`. */
 export interface JourneyCelebrationData {
   journeyOrder: number;
   badge: Badge;
@@ -27,10 +26,6 @@ function fallbackBadge(journeyId: string, refreshed: JourneyDetail): Badge {
   };
 }
 
-/**
- * Padanan `JourneyCompletionController.celebrationAfterModules` — murni data.
- * `null` kalau journey belum tuntas atau memang sudah lama selesai.
- */
 export function computeJourneyCelebration(params: {
   journeyId: string;
   wasCompletedBefore: boolean;

@@ -1,6 +1,5 @@
 import { parseApiDate } from '@/core/lib/dateFormat';
 
-/** Padanan `frontend-android/lib/features/badges/data/models/badge.dart`. */
 export interface Badge {
   readonly id: string;
   readonly journeyId: string;
@@ -10,7 +9,7 @@ export interface Badge {
   readonly motivationalMessage: string | null;
   readonly iconUrl: string | null;
   readonly earned: boolean;
-  readonly earnedAt: string | null; // ISO
+  readonly earnedAt: string | null;
 }
 
 export function parseBadge(json: Record<string, unknown>): Badge {

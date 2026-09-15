@@ -29,7 +29,6 @@ const TYPE_ICON: Record<ModuleContentType, ComponentType<LucideProps>> = {
   unknown: Circle,
 };
 
-/** Padanan `module_header.dart`. */
 export function ModuleHeader({ module }: { module: ModuleDetail }) {
   const Icon = TYPE_ICON[module.type];
   return (

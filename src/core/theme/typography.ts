@@ -1,9 +1,3 @@
-/**
- * `AppTypography.*` sebagai kelas Tailwind. Tiap entri memuat ukuran + tinggi
- * baris + tracking + bobot (dari `text-*` di tailwind.config) PLUS warna default
- * (setara `TextStyle.color` di Flutter). Timpa warna dengan menambahkan kelas
- * `text-*` setelahnya — sama seperti `style.copyWith(color: ...)`.
- */
 export const text = {
   displayLarge: 'text-display-lg text-primary',
   displayMedium: 'text-display-md text-primary',

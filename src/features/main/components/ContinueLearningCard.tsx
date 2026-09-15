@@ -6,7 +6,6 @@ interface ContinueLearningCardProps {
   onTap: () => void;
 }
 
-/** Padanan `continue_learning_card.dart`. */
 export function ContinueLearningCard({ journeyDetail, onTap }: ContinueLearningCardProps) {
   const current = currentModule(journeyDetail);
   if (!current) return null;
@@ -21,8 +20,6 @@ export function ContinueLearningCard({ journeyDetail, onTap }: ContinueLearningC
       className="block w-full overflow-hidden rounded-lg border border-border bg-white text-left"
     >
       <div className="flex items-start gap-md p-md">
-        {/* Cover journey rasio 2:3 (potrait) di sisi kiri; `object-contain`
-            supaya rasio non-2:3 tidak ke-crop. */}
         <div className="flex aspect-[2/3] w-96 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary-soft">
           {imageUrl ? (
             <img src={imageUrl} alt="" className="h-full w-full object-contain" />

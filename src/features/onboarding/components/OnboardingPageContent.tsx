@@ -2,7 +2,6 @@ import { AppIllustration } from '@/core/components/AppIllustration';
 import { HighlightText } from '@/core/components/HighlightText';
 import type { OnboardingPageData } from '../model/onboardingPages';
 
-/** Padanan `onboarding_page_content.dart`. */
 export function OnboardingPageContent({ data }: { data: OnboardingPageData }) {
   return (
     <div className="flex min-h-full flex-col items-stretch px-screen">

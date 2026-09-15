@@ -1,10 +1,5 @@
 import { AxiosError } from 'axios';
 
-/**
- * Padanan `frontend-android/lib/core/network/api_exception.dart`.
- * Bentuk error seragam untuk seluruh lapisan `api/`: pesan siap-tampil,
- * `statusCode`, `code` bisnis dari backend, dan `fieldErrors` untuk form.
- */
 export interface ApiError {
   readonly name: 'ApiError';
   readonly message: string;
@@ -37,7 +32,6 @@ export function isApiError(value: unknown): value is ApiError {
   );
 }
 
-/* ---- predikat setara getter di ApiException ---- */
 export const isUnauthorized = (e: ApiError) => e.statusCode === 401;
 export const isValidation = (e: ApiError) => e.statusCode === 422;
 export const isThrottled = (e: ApiError) => e.statusCode === 429;
@@ -81,7 +75,6 @@ interface ApiErrorBody {
   errors?: unknown;
 }
 
-/** Petakan `AxiosError` -> `ApiError` (setara `ApiException.fromDio`). */
 export function apiErrorFromAxios(error: AxiosError): ApiError {
   const response = error.response;
 
@@ -123,7 +116,6 @@ export function apiErrorFromAxios(error: AxiosError): ApiError {
   });
 }
 
-/** Normalisasi apa pun yang tertangkap menjadi `ApiError`. */
 export function toApiError(error: unknown): ApiError {
   if (isApiError(error)) return error;
   if (error instanceof AxiosError) return apiErrorFromAxios(error);

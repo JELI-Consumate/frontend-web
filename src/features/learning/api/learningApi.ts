@@ -4,7 +4,6 @@ import { parseSector, type Sector } from '../model/sector';
 import { parseSectorDetail, type SectorDetail } from '../model/sectorDetail';
 import { parseJourneyDetail, type JourneyDetail } from '../model/journeyDetail';
 
-/** Padanan `LearningRepository` di frontend-android. */
 export const learningApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getSectors: build.query<Sector[], void>({

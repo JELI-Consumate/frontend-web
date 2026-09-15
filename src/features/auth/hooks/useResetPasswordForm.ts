@@ -7,7 +7,6 @@ import { EMAIL_PATTERN, OTP_LENGTH } from '../lib/validators';
 
 const KNOWN_FIELDS = ['email', 'otp', 'password', 'password_confirmation'] as const;
 
-/** Padanan `_ResetPasswordScreenState`. */
 export function useResetPasswordForm(initialEmail?: string) {
   const navigate = useNavigate();
   const showAlert = useAlert();

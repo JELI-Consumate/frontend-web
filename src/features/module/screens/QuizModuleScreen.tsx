@@ -28,7 +28,6 @@ interface Props {
   moduleTitle: string;
 }
 
-/** Padanan `quiz_module_screen.dart`. */
 export function QuizModuleScreen({ page, nav, moduleTitle }: Props) {
   const quiz = page.content.kind === 'quiz' ? page.content.content : null;
   const [startAttempt] = useStartQuizAttemptMutation();
@@ -252,7 +251,6 @@ function ChoiceOptionTile({
       >
         {letter}
       </span>
-      {/* Tanpa line-clamp -- opsi jawaban tidak boleh terpotong. */}
       <span
         className={cn('flex-1 text-body-md', selected ? 'font-semibold text-primary' : 'text-ink')}
       >

@@ -9,7 +9,6 @@ import type { Sector } from '@/features/learning/model/sector';
 import { selectSector } from '../state/activeSectorSlice';
 import { sectorColor, sectorIcon } from '../lib/sectorVisual';
 
-/** Padanan `sector_selection_screen.dart`. */
 export function SectorSelectionScreen() {
   const dispatch = useAppDispatch();
   const { data: sectors, isError, refetch, isLoading } = useGetSectorsQuery();
@@ -20,7 +19,6 @@ export function SectorSelectionScreen() {
   function confirm(slug: string) {
     if (saving) return;
     setSaving(true);
-    // AppRoot rebuild ke MainShell -> layar ini dibuang, tak perlu reset saving.
     dispatch(selectSector(slug));
   }
 
@@ -58,8 +56,8 @@ function Header() {
       <div className="flex-1">
         <h1 className="text-display-md text-primary">Pilih sektor yang akan kamu pelajari</h1>
         <p className="mt-xs text-body-sm text-ink-muted">
-          Pilih satu sektor pembelajaran. Seluruh materi, simulasi, dan evaluasi akan
-          disesuaikan dengan sektor yang kamu pilih.
+          Pilih satu sektor pembelajaran. Seluruh materi, simulasi, dan evaluasi akan disesuaikan
+          dengan sektor yang kamu pilih.
         </p>
       </div>
       <div className="flex h-48 w-48 shrink-0 items-center justify-center rounded-full bg-primary-soft">

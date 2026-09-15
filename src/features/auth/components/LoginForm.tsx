@@ -13,7 +13,6 @@ interface LoginFormProps {
   onForgotPassword: () => void;
 }
 
-/** Padanan `login_form.dart`. */
 export function LoginForm({
   onSwitchToRegister,
   onGooglePressed,

@@ -7,10 +7,6 @@ import { useLoginWithGoogleMutation } from '../api/authApi';
 export const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '';
 export const googleAuthEnabled = GOOGLE_CLIENT_ID.length > 0;
 
-/**
- * Padanan `GoogleAuthService.signInAndGetAccessToken` + `AuthScreen._handleGoogle`.
- * OAuth 2.0 implicit flow -> `access_token` -> POST `/auth/google`.
- */
 export function useGoogleAuth() {
   const showAlert = useAlert();
   const [loginWithGoogle] = useLoginWithGoogleMutation();
@@ -22,7 +18,6 @@ export function useGoogleAuth() {
     onSuccess: async (response) => {
       try {
         await loginWithGoogle(response.access_token).unwrap();
-        // sukses -> AuthController men-set user -> AppRoot pindah layar.
       } catch (error) {
         const presentation = presentAuthError(error, []);
         void showAlert({
@@ -35,7 +30,6 @@ export function useGoogleAuth() {
       }
     },
     onError: () => {
-      // batal / popup ditutup -> diam (sesuai Flutter yang mengembalikan null).
       setSubmitting(false);
     },
     onNonOAuthError: () => {

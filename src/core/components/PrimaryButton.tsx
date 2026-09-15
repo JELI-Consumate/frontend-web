@@ -6,7 +6,6 @@ import { Spinner } from './Spinner';
 interface PrimaryButtonProps {
   label: string;
   onPressed?: (() => void) | null;
-  /** `undefined` -> panah (default Flutter). `null` -> tanpa ikon. */
   trailingIcon?: ComponentType<LucideProps> | null;
   isLoading?: boolean;
   expand?: boolean;
@@ -14,7 +13,6 @@ interface PrimaryButtonProps {
   className?: string;
 }
 
-/** Setara `frontend-android/lib/core/widgets/primary_button.dart` (FilledButton). */
 export function PrimaryButton({
   label,
   onPressed,

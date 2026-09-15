@@ -1,4 +1,3 @@
-/** Padanan `simulation_attempt.dart`. */
 function int(value: unknown): number | null {
   return typeof value === 'number' ? Math.trunc(value) : null;
 }
@@ -56,9 +55,7 @@ export interface SimulationCheckResult {
   readonly attempt: SimulationAttempt;
 }
 
-export function parseSimulationCheckResult(
-  json: Record<string, unknown>,
-): SimulationCheckResult {
+export function parseSimulationCheckResult(json: Record<string, unknown>): SimulationCheckResult {
   return {
     correct: (json['correct'] as boolean | undefined) ?? false,
     attempt: parseSimulationAttempt(json['attempt'] as Record<string, unknown>),

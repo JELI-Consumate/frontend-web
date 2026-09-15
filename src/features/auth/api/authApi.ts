@@ -37,10 +37,6 @@ export interface UpdateProfileInput {
   clearDateOfBirth?: boolean;
 }
 
-/**
- * Setara `AuthRepository._consumeAuthResult`: menyimpan token (efek samping,
- * seperti di Flutter) lalu mengembalikan user.
- */
 function consumeAuthResult(raw: unknown): AppUser {
   const data = requireData(raw);
   const token = data['token'];
@@ -56,7 +52,6 @@ function consumeAuthResult(raw: unknown): AppUser {
   return parseAppUser(user as Record<string, unknown>);
 }
 
-/** `AuthController._startFreshSession`: reset sektor sesi lalu set user. */
 function startFreshSession(dispatch: AppDispatch, user: AppUser): void {
   dispatch(clearSector());
   dispatch(setUser(user));
@@ -165,8 +160,6 @@ export const authApi = baseApi.injectEndpoints({
     }),
 
     logout: build.mutation<void, void>({
-      // Setara `AuthRepository.logout`: 401 dianggap sukses; error lain
-      // diteruskan; token SELALU dibuang di akhir.
       queryFn: async () => {
         try {
           await httpClient.post('/auth/logout');
@@ -181,7 +174,6 @@ export const authApi = baseApi.injectEndpoints({
         try {
           await queryFulfilled;
         } catch {
-          /* error non-401 sudah ditangani pemanggil */
         } finally {
           tokenStorage.clear();
           dispatch(signedOut());

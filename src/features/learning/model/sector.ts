@@ -3,13 +3,8 @@ import {
   ZERO_PROGRESS,
   type LearningProgress,
 } from '@/core/model/learningStatus';
-import {
-  EMPTY_SECTOR_SURVEYS,
-  parseSectorSurveys,
-  type SectorSurveys,
-} from './sectorSurvey';
+import { EMPTY_SECTOR_SURVEYS, parseSectorSurveys, type SectorSurveys } from './sectorSurvey';
 
-/** Padanan `frontend-android/lib/features/learning/data/models/sector.dart`. */
 export interface Sector {
   readonly id: string;
   readonly slug: string;

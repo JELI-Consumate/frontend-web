@@ -1,4 +1,3 @@
-/** Padanan `content/simulation_content.dart`. */
 export type SimulationGameType = 'matching' | 'ordering' | 'unknown';
 
 export function parseSimulationGameType(value: unknown): SimulationGameType {

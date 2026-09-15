@@ -6,7 +6,6 @@ interface PageDotsProps {
   onDotTap?: (index: number) => void;
 }
 
-/** Setara `frontend-android/lib/core/widgets/page_dots.dart`. */
 export function PageDots({ count, activeIndex, onDotTap }: PageDotsProps) {
   return (
     <div className="flex items-center justify-center">

@@ -1,13 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-/**
- * Padanan `frontend-android/lib/features/onboarding/application/active_sector_controller.dart`.
- *
- * Sektor yang sedang dipelajari user pada sesi ini. SENGAJA tidak dipersist:
- * satu user bisa belajar banyak sektor. Tiap cold start / login, nilainya
- * kembali `null` dan AppRoot menampilkan SectorSelectionScreen dulu sebelum
- * MainShell. Token auth tetap dipersist terpisah (sesi 30 hari).
- */
 interface ActiveSectorState {
   slug: string | null;
 }

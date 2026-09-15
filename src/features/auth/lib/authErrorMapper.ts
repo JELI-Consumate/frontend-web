@@ -1,6 +1,5 @@
 import { isApiError } from '@/api/apiError';
 
-/** Padanan `presentAuthError` di `auth_error_mapper.dart`. */
 export interface AuthErrorPresentation {
   fieldErrors: Record<string, string>;
   message: string | null;

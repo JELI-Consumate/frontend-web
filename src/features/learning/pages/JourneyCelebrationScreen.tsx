@@ -7,7 +7,6 @@ import { selectTab } from '@/features/main/state/mainTabSlice';
 import { BadgeAvatar } from '@/features/badges/components/BadgeAvatar';
 import type { JourneyCelebrationData } from '../model/journeyCompletion';
 
-/** Padanan `journey_celebration_screen.dart`. */
 export function JourneyCelebrationScreen() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -72,7 +71,9 @@ export function JourneyCelebrationScreen() {
 
         <div className="h-xl" />
         {badge.motivationalMessage && badge.motivationalMessage.trim().length > 0 ? (
-          <p className="mb-md text-center text-body-sm text-ink-muted">{badge.motivationalMessage}</p>
+          <p className="mb-md text-center text-body-sm text-ink-muted">
+            {badge.motivationalMessage}
+          </p>
         ) : null}
         {data.nextJourneyId ? (
           <PrimaryButton

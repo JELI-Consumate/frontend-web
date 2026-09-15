@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-/**
- * Setara `_UnauthenticatedFlowState._onboardingDone` di frontend-android:
- * status per-sesi (tidak dipersist). Cold start selalu mulai dari onboarding.
- */
 interface OnboardingState {
   done: boolean;
 }

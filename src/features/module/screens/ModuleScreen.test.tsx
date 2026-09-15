@@ -17,10 +17,29 @@ describe('ModuleScreen (modul multi-halaman)', () => {
   it('menggambar chrome hoisted + footer halaman aktif tanpa loop render', async () => {
     mock = mockHttp();
     mock.onGet('/modules/m1').reply(200, envelope(twoPageArticleModuleJson()));
-    mock.onGet('/journeys/j1').reply(
-      200,
-      envelope(journeyDetailJson({ modules: [{ id: 'm1', type: 'materi', title: 'Dua Halaman', description: null, order: 1, estimated_minutes: 8, is_required: true, progress: { status: 'not_started', percent: 0 }, locked: false, pages: [{ id: 'p1' }, { id: 'p2' }] }] })),
-    );
+    mock
+      .onGet('/journeys/j1')
+      .reply(
+        200,
+        envelope(
+          journeyDetailJson({
+            modules: [
+              {
+                id: 'm1',
+                type: 'materi',
+                title: 'Dua Halaman',
+                description: null,
+                order: 1,
+                estimated_minutes: 8,
+                is_required: true,
+                progress: { status: 'not_started', percent: 0 },
+                locked: false,
+                pages: [{ id: 'p1' }, { id: 'p2' }],
+              },
+            ],
+          }),
+        ),
+      );
 
     renderWithProviders(
       <Routes>
@@ -29,10 +48,8 @@ describe('ModuleScreen (modul multi-halaman)', () => {
       { route: '/journey/j1/module/m1' },
     );
 
-    // Konten halaman 1 tampil, footer (di-portal) menampilkan "Selanjutnya".
     expect(await screen.findByText('Isi halaman satu.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Selanjutnya/ })).toBeInTheDocument();
-    // Modul 1/1 di top bar (journeyModuleIds punya 1 modul).
     expect(screen.getByText('Modul 1/1')).toBeInTheDocument();
   });
 
@@ -50,8 +67,6 @@ describe('ModuleScreen (modul multi-halaman)', () => {
           <Route path="/journey/:id" element={<div>DETAIL JOURNEY</div>} />
         </Routes>
       </>,
-      // entri tunggal -> `history.back()` tak punya ke mana pun (kasus refresh /
-      // deep link / notifikasi).
       { route: '/journey/j1/module/m1' },
     );
 

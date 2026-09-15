@@ -13,7 +13,6 @@ import {
 } from 'lucide-react';
 import type { ModuleContentType } from '../model/learningModule';
 
-/** Setara `_avatarIconFor` di `module_row.dart` / `_iconFor` di `module_header.dart`. */
 export const moduleTypeIcon: Record<ModuleContentType, ComponentType<LucideProps>> = {
   opening: Circle,
   video: PlayCircle,
@@ -26,7 +25,6 @@ export const moduleTypeIcon: Record<ModuleContentType, ComponentType<LucideProps
   unknown: Circle,
 };
 
-/** Setara `_labelIconFor` (opening pakai info). */
 export function moduleLabelIcon(type: ModuleContentType): ComponentType<LucideProps> {
   return type === 'opening' ? Info : moduleTypeIcon[type];
 }

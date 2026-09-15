@@ -4,7 +4,6 @@ interface AuthFooterLinkProps {
   onTap: () => void;
 }
 
-/** Padanan `auth_footer_link.dart`. */
 export function AuthFooterLink({ question, action, onTap }: AuthFooterLinkProps) {
   return (
     <div className="flex justify-center">

@@ -1,4 +1,3 @@
-/** Padanan `content/article_content.dart`. */
 export type ArticleBlockType = 'paragraph' | 'image' | 'list_item' | 'reference' | 'unknown';
 
 export function parseArticleBlockType(value: unknown): ArticleBlockType {

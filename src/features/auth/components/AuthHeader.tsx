@@ -1,4 +1,3 @@
-/** Padanan `auth_header.dart`. */
 export function AuthHeader() {
   return (
     <div className="relative overflow-hidden bg-white">

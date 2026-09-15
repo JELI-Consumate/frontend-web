@@ -4,7 +4,6 @@ import { usePrimarySectorDetail } from '@/features/learning/hooks/usePrimarySect
 import { pretestGateActive } from '@/features/learning/model/sectorDetail';
 import { JourneyCard } from '../components/JourneyCard';
 
-/** Padanan `journeys_screen.dart`. */
 export function JourneysScreen() {
   const navigate = useNavigate();
   const { data: detail, isLoading, isError } = usePrimarySectorDetail();

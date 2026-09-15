@@ -5,7 +5,6 @@ import { cn } from '@/core/lib/cn';
 import { Spinner } from '@/core/components/Spinner';
 import { PrimaryButton } from '@/core/components/PrimaryButton';
 
-/** Padanan `module_top_bar.dart`. */
 export function ModuleTopBar({
   position,
   total,
@@ -38,7 +37,6 @@ export function ModuleTopBar({
   );
 }
 
-/** Padanan `module_bottom_bar.dart`. */
 export function ModuleBottomBar({
   children,
   pageCount = 1,
@@ -74,7 +72,6 @@ export function ModuleBottomBar({
   );
 }
 
-/** Padanan `module_continue_button.dart`. */
 export function ModuleContinueButton({
   hasNext,
   busy,
@@ -94,7 +91,6 @@ export function ModuleContinueButton({
   );
 }
 
-/** Padanan `module_async_scaffold.dart`. */
 export function ModuleLoadingScaffold() {
   return (
     <div className="flex h-[100dvh] items-center justify-center bg-background">

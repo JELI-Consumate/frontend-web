@@ -7,8 +7,11 @@ interface GoogleButtonProps {
   isLoading?: boolean;
 }
 
-/** Setara `frontend-android/lib/core/widgets/google_button.dart`. */
-export function GoogleButton({ onPressed, label = 'Google', isLoading = false }: GoogleButtonProps) {
+export function GoogleButton({
+  onPressed,
+  label = 'Google',
+  isLoading = false,
+}: GoogleButtonProps) {
   const enabled = onPressed != null && !isLoading;
 
   return (

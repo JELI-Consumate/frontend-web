@@ -1,12 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { AppUser } from '../model/appUser';
 
-/**
- * Setara `AuthController` (AsyncNotifier<AppUser?>) di frontend-android.
- * - `bootstrapped=false` -> AppRoot menampilkan SplashScreen (build() awal).
- * - `user==null` sesudah bootstrap -> alur belum login.
- * Token bearer sendiri dikelola `tokenStorage`, bukan di sini.
- */
 interface AuthState {
   user: AppUser | null;
   bootstrapped: boolean;
@@ -24,7 +18,6 @@ const authSlice = createSlice({
     setUser(state, action: PayloadAction<AppUser>) {
       state.user = action.payload;
     },
-    /** Sesi berakhir (logout, 401, atau bootstrap tanpa token). */
     signedOut(state) {
       state.user = null;
     },

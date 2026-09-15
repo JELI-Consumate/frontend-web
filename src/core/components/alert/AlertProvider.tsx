@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef, useState, type ComponentType, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type ComponentType,
+  type ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { Check, AlertCircle, TriangleAlert, Info, type LucideProps } from 'lucide-react';
 import { PrimaryButton } from '../PrimaryButton';
@@ -22,11 +29,6 @@ interface Pending extends AppAlertOptions {
   resolve: () => void;
 }
 
-/**
- * Setara `showAppAlert` di `frontend-android/lib/core/widgets/app_alert_dialog.dart`.
- * Menampung antrean dialog (satu tampil, sisanya menunggu) dan mengembalikan
- * Promise yang selesai saat dialog ditutup.
- */
 export function AlertProvider({ children }: { children: ReactNode }) {
   const [current, setCurrent] = useState<Pending | null>(null);
   const queueRef = useRef<Pending[]>([]);
@@ -91,9 +93,7 @@ function AlertDialog({
         onMouseDown={(e) => e.stopPropagation()}
         className="flex w-full max-w-app flex-col items-center rounded-xl bg-white px-lg pb-lg pt-xl shadow-card"
       >
-        <div
-          className={`flex h-72 w-72 items-center justify-center rounded-full ${visual.soft}`}
-        >
+        <div className={`flex h-72 w-72 items-center justify-center rounded-full ${visual.soft}`}>
           <visual.Icon size={34} className={visual.color} />
         </div>
         <h2 className="mt-md text-center text-title-lg text-black">{title}</h2>

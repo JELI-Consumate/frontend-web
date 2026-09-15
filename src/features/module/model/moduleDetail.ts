@@ -4,7 +4,6 @@ import {
 } from '@/features/learning/model/learningModule';
 import { parseModulePage, type ModulePage } from './modulePage';
 
-/** Padanan `module_detail.dart`. */
 export interface ModuleDetail {
   readonly id: string;
   readonly type: ModuleContentType;

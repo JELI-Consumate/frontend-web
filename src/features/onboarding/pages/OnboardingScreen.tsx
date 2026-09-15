@@ -6,7 +6,6 @@ import { OnboardingPageContent } from '../components/OnboardingPageContent';
 import { onboardingPages } from '../model/onboardingPages';
 import { finishOnboarding } from '../state/onboardingSlice';
 
-/** Padanan `onboarding_screen.dart`. */
 export function OnboardingScreen() {
   const dispatch = useAppDispatch();
   const pages = onboardingPages;

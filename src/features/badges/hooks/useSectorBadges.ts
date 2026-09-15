@@ -10,13 +10,6 @@ interface SectorBadgesResult {
   refetch: () => void;
 }
 
-/**
- * Padanan `_sectorBadgesProvider` (file-private) di `badges_screen.dart` sesudah
- * refactor Phase 3: komposisi lintas fitur (`badges` + `learning`) hidup di
- * layer presentation, bukan di `badges/api`.
- *
- * Lencana milik sektor aktif saja, diurutkan mengikuti urutan journey-nya.
- */
 export function useSectorBadges(): SectorBadgesResult {
   const badgesQuery = useGetBadgesQuery();
   const sector = usePrimarySectorDetail();
@@ -28,7 +21,8 @@ export function useSectorBadges(): SectorBadgesResult {
     return badgesQuery.data
       .filter((badge) => orderByJourneyId.has(badge.journeyId))
       .sort(
-        (a, b) => (orderByJourneyId.get(a.journeyId) ?? 0) - (orderByJourneyId.get(b.journeyId) ?? 0),
+        (a, b) =>
+          (orderByJourneyId.get(a.journeyId) ?? 0) - (orderByJourneyId.get(b.journeyId) ?? 0),
       );
   }, [badgesQuery.data, sector.data]);
 

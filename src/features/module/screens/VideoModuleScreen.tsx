@@ -16,7 +16,6 @@ interface Props {
   nav: ModulePageNav;
 }
 
-/** Padanan `video_module_screen.dart`. Di web, video di-embed via iframe YouTube. */
 export function VideoModuleScreen({ module, page, nav }: Props) {
   const content = page.content.kind === 'video' ? page.content.content : null;
   const showAlert = useAlert();
@@ -99,7 +98,11 @@ export function VideoModuleScreen({ module, page, nav }: Props) {
               </button>
             </div>
           ) : (
-            <PrimaryButton label="Tonton di YouTube" trailingIcon={ExternalLink} onPressed={openVideo} />
+            <PrimaryButton
+              label="Tonton di YouTube"
+              trailingIcon={ExternalLink}
+              onPressed={openVideo}
+            />
           )}
 
           {content.promptQuestion ? (

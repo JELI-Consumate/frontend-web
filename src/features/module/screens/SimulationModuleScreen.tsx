@@ -51,7 +51,6 @@ function shuffled<T>(list: readonly T[]): T[] {
   return copy;
 }
 
-/** Padanan `simulation_module_screen.dart`. */
 export function SimulationModuleScreen({ module, page, nav }: Props) {
   const content = page.content.kind === 'simulation' ? page.content.content : null;
   const [startAttempt] = useStartSimulationAttemptMutation();
@@ -122,8 +121,6 @@ export function SimulationModuleScreen({ module, page, nav }: Props) {
   );
 }
 
-/* ---------------- scenario header ---------------- */
-
 const TYPE_LABEL: Record<SimulationGameType, string> = {
   matching: 'Pilah Cepat',
   ordering: 'Susun Jalur Solusi',
@@ -159,8 +156,6 @@ function CompletionView({ attempt }: { attempt: SimulationAttempt }) {
     </div>
   );
 }
-
-/* ---------------- matching ---------------- */
 
 function MatchingGame({
   attemptId,
@@ -288,8 +283,6 @@ function MatchCard({
       )}
     >
       {imageUrl ? (
-        // Foto simulasi rasio 3:2 (landscape); `object-contain` supaya rasio
-        // non-3:2 dimuat utuh, tidak ke-crop.
         <div className="aspect-[3/2] w-full bg-background">
           <img
             src={imageUrl}
@@ -312,10 +305,6 @@ function MatchCard({
   );
 }
 
-/**
- * Badge kecil untuk label singkat ("Situasi 1", "Solusi A") -- merah untuk
- * situasi (meniru chip "Skenario N" di mockup), biru untuk solusi.
- */
 function MatchBadge({ label, isSituation }: { label: string; isSituation: boolean }) {
   const Icon = isSituation ? CircleAlert : Lightbulb;
   return (
@@ -326,14 +315,10 @@ function MatchBadge({ label, isSituation }: { label: string; isSituation: boolea
       )}
     >
       <Icon size={12} className="shrink-0" />
-      {/* min-w-0 -- tanpa ini, label panjang di flex row bisa meluber ke luar
-          pill alih-alih membungkus (tanpa clamp, teksnya harus utuh & wrap). */}
       <span className="min-w-0">{label}</span>
     </span>
   );
 }
-
-/* ---------------- ordering ---------------- */
 
 function OrderingGame({
   attemptId,
@@ -528,9 +513,7 @@ function OrderingSlot({
         {position}
       </span>
       {step?.imageUrl ? <StepThumbnail imageUrl={step.imageUrl} size={36} /> : null}
-      <span
-        className={cn('flex-1 text-body-md', filled ? 'text-ink' : 'italic text-ink-muted')}
-      >
+      <span className={cn('flex-1 text-body-md', filled ? 'text-ink' : 'italic text-ink-muted')}>
         {step?.label ?? 'Seret atau ketuk salah satu langkah di bawah'}
       </span>
       {onRemove ? (
@@ -563,12 +546,10 @@ function PoolCard({ step, onTap }: { step: SimulationOrderingStep; onTap?: () =>
   );
 }
 
-/** Foto langkah dari backend, dipakai di kartu pool dan slot yang sudah terisi. */
 function StepThumbnail({ imageUrl, size }: { imageUrl: string; size: 36 | 48 }) {
   const dimension = size === 36 ? 'h-36 w-36' : 'h-48 w-48';
   return (
     <span className={cn('shrink-0 overflow-hidden rounded-sm bg-background', dimension)}>
-      {/* `object-contain` -- thumbnail tetap kotak, foto dimuat utuh tanpa ke-crop. */}
       <img
         src={imageUrl}
         alt=""

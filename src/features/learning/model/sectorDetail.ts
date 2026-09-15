@@ -3,7 +3,6 @@ import { parseJourney, type Journey } from './journey';
 import { parseSector, type Sector } from './sector';
 import { surveyIsCompleted, surveyIsConfigured } from './sectorSurvey';
 
-/** Padanan `frontend-android/lib/features/learning/data/models/sector_detail.dart`. */
 export interface SectorDetail {
   readonly sector: Sector;
   readonly journeys: Journey[];
@@ -18,8 +17,6 @@ export function parseSectorDetail(json: Record<string, unknown>): SectorDetail {
       : [],
   };
 }
-
-/* ---- getter turunan (setara getter di SectorDetail) ---- */
 
 export function inProgressJourney(detail: SectorDetail): Journey | null {
   return detail.journeys.find((j) => isInProgress(j.progress.status)) ?? null;

@@ -1,10 +1,7 @@
 import { Lock, Check, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { cn } from '@/core/lib/cn';
 import { isCompleted as statusCompleted } from '@/core/model/learningStatus';
-import {
-  MODULE_TYPE_SHORT_LABEL,
-  type LearningModule,
-} from '../model/learningModule';
+import { MODULE_TYPE_SHORT_LABEL, type LearningModule } from '../model/learningModule';
 import { moduleLabelIcon, moduleTypeIcon } from '../lib/moduleTypeIcon';
 
 interface ModuleRowProps {
@@ -13,7 +10,6 @@ interface ModuleRowProps {
   onTap: () => void;
 }
 
-/** Padanan `module_row.dart`. */
 export function ModuleRow({ module, isCurrent, onTap }: ModuleRowProps) {
   const isCompleted = statusCompleted(module.progress.status);
   const isLocked = module.locked;

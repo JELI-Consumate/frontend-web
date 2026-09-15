@@ -3,12 +3,10 @@ import { ArrowLeft } from 'lucide-react';
 
 interface TopBarProps {
   title?: string;
-  /** Default: `navigate(-1)`. */
   onBack?: () => void;
   showBack?: boolean;
 }
 
-/** Setara `AppBar` dari `app_theme.dart` (bg background, judul di tengah). */
 export function TopBar({ title, onBack, showBack = true }: TopBarProps) {
   const navigate = useNavigate();
   return (

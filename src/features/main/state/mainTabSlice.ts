@@ -1,6 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-/** Padanan `main_tab_provider.dart` (MainTabIndexNotifier). */
 interface MainTabState {
   index: number;
 }

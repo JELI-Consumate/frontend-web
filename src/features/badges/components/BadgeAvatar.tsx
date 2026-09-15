@@ -3,7 +3,6 @@ import { Award } from 'lucide-react';
 import { cn } from '@/core/lib/cn';
 import type { Badge } from '../model/badge';
 
-/** Padanan `badge_avatar.dart`. */
 export function BadgeAvatar({ badge, size = 56 }: { badge: Badge; size?: number }) {
   const [imgOk, setImgOk] = useState(true);
   const showImg = badge.iconUrl != null && badge.iconUrl.length > 0 && imgOk;

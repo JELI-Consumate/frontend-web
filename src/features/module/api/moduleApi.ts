@@ -1,18 +1,9 @@
 import { baseApi } from '@/api/baseApi';
 import { requireData } from '@/api/apiEnvelope';
 import { parseModuleDetail, type ModuleDetail } from '../model/moduleDetail';
-import {
-  parseQuizAnswerCheckResult,
-  type QuizAnswerCheckResult,
-} from '../model/quizAttempt';
-import {
-  parseSimulationCheckResult,
-  type SimulationCheckResult,
-} from '../model/simulationAttempt';
-import {
-  parseReflectionContent,
-  type ReflectionContent,
-} from '../model/content/reflectionContent';
+import { parseQuizAnswerCheckResult, type QuizAnswerCheckResult } from '../model/quizAttempt';
+import { parseSimulationCheckResult, type SimulationCheckResult } from '../model/simulationAttempt';
+import { parseReflectionContent, type ReflectionContent } from '../model/content/reflectionContent';
 import type { QuizSegmentType } from '../model/content/quizContent';
 
 export interface CheckQuizAnswerInput {
@@ -29,7 +20,6 @@ export interface SaveReflectionInput {
   checklistAnswers: Record<string, boolean>;
 }
 
-/** Padanan `ModuleRepository` di frontend-android. */
 export const moduleApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getModule: build.query<ModuleDetail, string>({
@@ -43,7 +33,6 @@ export const moduleApi = baseApi.injectEndpoints({
         method: 'POST',
       }),
       transformResponse: () => undefined,
-      // Progres journey/sektor berubah setelah halaman selesai.
       invalidatesTags: ['JourneyDetail', 'SectorDetail'],
     }),
 

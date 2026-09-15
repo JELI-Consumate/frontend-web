@@ -9,7 +9,6 @@ interface OtpBoxInputProps {
   onCompleted: (code: string) => void;
 }
 
-/** Padanan `_OtpBoxInput` di `otp_verification_screen.dart`. */
 export function OtpBoxInput({
   length,
   enabled,

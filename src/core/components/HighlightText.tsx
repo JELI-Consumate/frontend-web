@@ -4,17 +4,12 @@ import { cn } from '@/core/lib/cn';
 interface HighlightTextProps {
   text: string;
   className?: string;
-  /** Kelas untuk potongan **di antara bintang** (default `bodyHighlight`). */
   highlightClassName?: string;
   align?: 'left' | 'center' | 'right';
 }
 
 const MARKER = /\*\*(.+?)\*\*/g;
 
-/**
- * Setara `frontend-android/lib/core/widgets/highlight_text.dart`: teks dengan
- * potongan `**...**` ditebalkan & diberi warna primary.
- */
 export function HighlightText({
   text,
   className,

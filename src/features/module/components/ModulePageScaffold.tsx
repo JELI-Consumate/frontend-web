@@ -7,25 +7,10 @@ interface ModulePageScaffoldProps {
   nav: ModulePageNav;
   body: ReactNode;
   footer?: ReactNode;
-  /** Kelas latar (default: background). */
   backgroundClassName?: string;
-  /**
-   * Saat nilai ini berubah, body di-scroll kembali ke atas — dipakai kuis yang
-   * mengganti soal di dalam satu halaman modul.
-   */
   scrollResetKey?: string | number;
 }
 
-/**
- * Padanan `module_page_scaffold.dart`.
- *
- * - Modul 1 halaman: frame setinggi viewport — header & footer diam
- *   (`shrink-0`), hanya body yang di-scroll.
- * - Modul >1 halaman (`chromeHoisted`): body saja; footer di-`portal` ke slot
- *   bottom bar milik induk, HANYA untuk halaman aktif — jadi top/bottom bar
- *   tidak ikut menggeser saat swipe antar-halaman. Frame + scroll body
- *   disediakan oleh `ContentRouter`.
- */
 export function ModulePageScaffold({
   nav,
   body,
@@ -44,9 +29,7 @@ export function ModulePageScaffold({
     return (
       <div className={`min-h-full ${backgroundClassName}`}>
         {body}
-        {isActive && nav.footerSlot && footer != null
-          ? createPortal(footer, nav.footerSlot)
-          : null}
+        {isActive && nav.footerSlot && footer != null ? createPortal(footer, nav.footerSlot) : null}
       </div>
     );
   }

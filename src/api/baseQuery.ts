@@ -10,13 +10,6 @@ export interface AxiosBaseQueryArgs {
   params?: AxiosRequestConfig['params'];
 }
 
-/**
- * `baseQuery` RTK Query berbasis `httpClient` (axios). Semua error dinormalkan
- * ke `ApiError` — sama seperti `guardApi()` di repository Flutter membungkus
- * `DioException` jadi `ApiException`. Body sukses dikembalikan apa adanya;
- * pembongkaran amplop `{ data: ... }` dilakukan lewat `transformResponse`
- * per-endpoint (lihat `apiEnvelope.ts`), setara `requireData()`.
- */
 export const axiosBaseQuery = (): BaseQueryFn<AxiosBaseQueryArgs, unknown, ApiError> => {
   return async ({ url, method, data, params }) => {
     try {

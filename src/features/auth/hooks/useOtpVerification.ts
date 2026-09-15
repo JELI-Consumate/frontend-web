@@ -7,7 +7,6 @@ import { OTP_LENGTH } from '../lib/validators';
 
 const COOLDOWN_SECONDS = 30;
 
-/** Padanan `_OtpVerificationScreenState`. */
 export function useOtpVerification(email: string) {
   const navigate = useNavigate();
   const showAlert = useAlert();
@@ -15,7 +14,6 @@ export function useOtpVerification(email: string) {
   const [resendOtp] = useResendOtpMutation();
 
   const [code, setCode] = useState('');
-  /** Ganti key -> remount kotak OTP (setara `_boxesResetToken`). */
   const [boxesResetToken, setBoxesResetToken] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [verifying, setVerifying] = useState(false);
@@ -56,7 +54,7 @@ export function useOtpVerification(email: string) {
       setVerifying(true);
       try {
         await verifyOtp({ email, otp }).unwrap();
-        navigate('/auth'); // user ter-set -> AppRoot pindah ke pilih sektor
+        navigate('/auth');
       } catch (caught) {
         if (isApiError(caught)) {
           setError(

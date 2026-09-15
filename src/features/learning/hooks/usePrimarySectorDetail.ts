@@ -11,12 +11,6 @@ interface PrimarySectorDetailResult {
   refetch: () => void;
 }
 
-/**
- * Padanan `primarySectorDetailProvider`:
- * - ada `activeSectorSlug` -> muat detail sektor itu.
- * - tidak ada -> muat daftar sektor lalu detail sektor pertama.
- *   `null` kalau daftar sektor kosong.
- */
 export function usePrimarySectorDetail(): PrimarySectorDetailResult {
   const activeSlug = useAppSelector((s) => s.activeSector.slug);
 
@@ -28,9 +22,13 @@ export function usePrimarySectorDetail(): PrimarySectorDetailResult {
   const detailQuery = useGetSectorDetailQuery(effectiveSlug ?? skipToken);
 
   return useMemo(() => {
-    // Mode fallback: daftar sektor sudah termuat tapi kosong -> null.
     if (activeSlug == null && sectorsQuery.isSuccess && (sectorsQuery.data?.length ?? 0) === 0) {
-      return { data: null, isLoading: false, isError: false, refetch: () => void sectorsQuery.refetch() };
+      return {
+        data: null,
+        isLoading: false,
+        isError: false,
+        refetch: () => void sectorsQuery.refetch(),
+      };
     }
 
     return {
