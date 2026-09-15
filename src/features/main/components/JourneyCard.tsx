@@ -66,11 +66,13 @@ export function JourneyCard({
 
 function Thumbnail({ imageUrl, locked }: { imageUrl: string | null; locked: boolean }) {
   return (
-    <div className="flex h-92 w-76 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary-soft">
+    // Cover journey rasio 2:3 (potrait). Lebar tetap 76, tinggi mengikuti.
+    <div className="flex aspect-[2/3] w-76 shrink-0 items-center justify-center overflow-hidden rounded-md bg-primary-soft">
       {locked ? (
         <Lock className="text-ink-muted" />
       ) : imageUrl ? (
-        <img src={imageUrl} alt="" className="h-full w-full object-cover" />
+        // `object-contain` -- rasio non-2:3 dimuat utuh, tidak ke-crop.
+        <img src={imageUrl} alt="" className="h-full w-full object-contain" />
       ) : (
         <img src="/images/journey_illustration.svg" alt="" className="p-xs" />
       )}
