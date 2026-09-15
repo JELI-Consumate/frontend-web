@@ -288,11 +288,13 @@ function MatchCard({
       )}
     >
       {imageUrl ? (
-        <div className="aspect-[4/3] w-full bg-background">
+        // Foto simulasi rasio 3:2 (landscape); `object-contain` supaya rasio
+        // non-3:2 dimuat utuh, tidak ke-crop.
+        <div className="aspect-[3/2] w-full bg-background">
           <img
             src={imageUrl}
             alt=""
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).style.display = 'none';
             }}
@@ -566,10 +568,11 @@ function StepThumbnail({ imageUrl, size }: { imageUrl: string; size: 36 | 48 }) 
   const dimension = size === 36 ? 'h-36 w-36' : 'h-48 w-48';
   return (
     <span className={cn('shrink-0 overflow-hidden rounded-sm bg-background', dimension)}>
+      {/* `object-contain` -- thumbnail tetap kotak, foto dimuat utuh tanpa ke-crop. */}
       <img
         src={imageUrl}
         alt=""
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
         onError={(e) => {
           (e.currentTarget as HTMLImageElement).style.display = 'none';
         }}
