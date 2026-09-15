@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
-import { useAlert } from '@/core/components/alert/useAlert';
+import { Search, X } from 'lucide-react';
 import { Spinner } from '@/core/components/Spinner';
 import { useCurrentUser } from '@/features/auth/hooks/useAuthState';
 import {
@@ -25,6 +25,8 @@ import { JourneyCard } from '../components/JourneyCard';
 export function DashboardScreen() {
   const user = useCurrentUser();
   const { data: detail, isLoading, isError } = usePrimarySectorDetail();
+  const [query, setQuery] = useState('');
+  const searchQuery = query.trim();
 
   return (
     <div className="min-h-full bg-background p-sm">
@@ -36,9 +38,16 @@ export function DashboardScreen() {
           Siap belajar perlindungan konsumen hari ini?
         </p>
         <div className="h-md" />
-        <SearchBarStub />
+        <JourneySearchField value={query} onChange={setQuery} onClear={() => setQuery('')} />
         <div className="h-lg" />
-        {isLoading ? (
+        {searchQuery ? (
+          <JourneySearchResults
+            query={searchQuery}
+            detail={detail ?? null}
+            isLoading={isLoading}
+            isError={isError}
+          />
+        ) : isLoading ? (
           <div className="pt-xxxl text-center">
             <Spinner />
           </div>
@@ -140,23 +149,88 @@ function ContinueLearningSection({ journeyId }: { journeyId: string }) {
   );
 }
 
-function SearchBarStub() {
-  const showAlert = useAlert();
+/** Kolom pencarian di Beranda -- khusus mencari journey berdasarkan judul. */
+function JourneySearchField({
+  value,
+  onChange,
+  onClear,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  onClear: () => void;
+}) {
   return (
-    <button
-      type="button"
-      onClick={() =>
-        void showAlert({
-          type: 'info',
-          title: 'Belum Tersedia',
-          message: 'Pencarian belum tersedia.',
-        })
-      }
-      className="flex w-full items-center gap-sm rounded-lg border border-border bg-white px-md py-sm text-left"
-    >
-      <Search size={20} className="text-muted" />
-      <span className="truncate text-body-md text-muted">Cari bahan pembelajaran...</span>
-    </button>
+    <div className="flex w-full items-center gap-sm rounded-lg border border-border bg-white px-md py-sm focus-within:border-primary">
+      <Search size={20} className="shrink-0 text-muted" />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Cari journey..."
+        className="min-w-0 flex-1 bg-transparent text-body-md text-ink outline-none placeholder:text-muted"
+      />
+      {value ? (
+        <button
+          type="button"
+          onClick={onClear}
+          aria-label="Hapus pencarian"
+          className="shrink-0 text-muted"
+        >
+          <X size={18} />
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+/** Hasil pencarian journey: filter `detail.journeys` berdasarkan judul. */
+function JourneySearchResults({
+  query,
+  detail,
+  isLoading,
+  isError,
+}: {
+  query: string;
+  detail: SectorDetail | null;
+  isLoading: boolean;
+  isError: boolean;
+}) {
+  const navigate = useNavigate();
+
+  if (isLoading) {
+    return (
+      <div className="pt-xxxl text-center">
+        <Spinner />
+      </div>
+    );
+  }
+  if (isError) return <ErrorState />;
+
+  const needle = query.toLowerCase();
+  const matches = (detail?.journeys ?? []).filter((journey) =>
+    journey.title.toLowerCase().includes(needle),
+  );
+
+  if (matches.length === 0) {
+    return (
+      <p className="pt-xl text-center text-body-sm text-ink-muted">
+        Tidak ada journey yang cocok dengan “{query}”.
+      </p>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-sm">
+      <p className="text-body-sm text-ink-muted">{matches.length} journey ditemukan</p>
+      {matches.map((journey) => (
+        <JourneyCard
+          key={journey.id}
+          journey={journey}
+          label={`Journey ${journey.order}`}
+          onTap={() => navigate(`/journey/${journey.id}`)}
+        />
+      ))}
+    </div>
   );
 }
 
