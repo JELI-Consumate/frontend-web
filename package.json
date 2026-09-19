@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Aplikasi Perlindungan Konsumen — web SPA (paritas dengan frontend-android)",
+  "description": "Consumate — web SPA (paritas dengan frontend-android)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
