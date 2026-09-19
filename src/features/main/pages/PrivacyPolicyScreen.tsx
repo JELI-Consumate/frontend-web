@@ -23,7 +23,7 @@ export function PrivacyPolicyScreen() {
           Terakhir diperbarui: 19 September 2026
         </p>
 
-        <div className="mt-xl flex flex-col gap-lg text-body-md text-content-primary">
+        <div className="mt-xl flex flex-col gap-lg text-justify text-body-md text-content-primary">
           <section>
             <h2 className="mb-sm text-title-lg font-bold text-content-primary">
               1. Pengumpulan Informasi
