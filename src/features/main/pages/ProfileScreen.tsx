@@ -17,16 +17,23 @@ import { AppTextField } from '@/core/components/AppTextField';
 import { cn } from '@/core/lib/cn';
 import { formatDashDate } from '@/core/lib/dateFormat';
 import { useCurrentUser } from '@/features/auth/hooks/useAuthState';
-import { useLogoutMutation, useUpdateProfileMutation } from '@/features/auth/api/authApi';
+import {
+  useLogoutMutation,
+  useUpdateProfileMutation,
+  useDeleteAccountMutation,
+} from '@/features/auth/api/authApi';
 import { isEmailVerified } from '@/features/auth/model/appUser';
+import { DeleteAccountModal } from '../components/DeleteAccountModal';
 
 export function ProfileScreen() {
   const user = useCurrentUser();
   const showAlert = useAlert();
   const [logout] = useLogoutMutation();
   const [updateProfile] = useUpdateProfileMutation();
+  const [deleteAccountMutation] = useDeleteAccountMutation();
   const [busy, setBusy] = useState(false);
   const [editingName, setEditingName] = useState(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
   const dobInputRef = useRef<HTMLInputElement>(null);
 
   if (!user) {
@@ -97,6 +104,20 @@ export function ProfileScreen() {
           });
       },
     });
+  }
+
+  function performDeleteAccount() {
+    setBusy(true);
+    deleteAccountMutation()
+      .unwrap()
+      .catch((error) => {
+        void showAlert({
+          type: 'error',
+          title: 'Terjadi Kesalahan',
+          message: isApiError(error) ? error.message : 'Terjadi kesalahan tak terduga.',
+        });
+        setBusy(false);
+      });
   }
 
   function avatarUnavailable() {
@@ -178,14 +199,22 @@ export function ProfileScreen() {
           />
         </div>
         <div className="h-xxl" />
-        <div className="flex justify-end">
+        <div className="flex flex-col gap-md">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={() => setDeletingAccount(true)}
+            className="inline-flex w-full items-center justify-center gap-xs rounded-pill border-2 border-danger px-lg py-sm text-label-lg text-danger disabled:opacity-60"
+          >
+            Hapus Akun
+          </button>
           <button
             type="button"
             disabled={busy}
             onClick={signOut}
-            className="inline-flex items-center gap-xs rounded-pill bg-danger px-lg py-sm text-label-lg text-white disabled:opacity-60"
+            className="inline-flex w-full items-center justify-center gap-xs rounded-pill bg-danger px-lg py-sm text-label-lg text-white disabled:opacity-60"
           >
-            {busy ? (
+            {busy && !deletingAccount ? (
               <Spinner size={16} strokeWidth={2} className="text-white" />
             ) : (
               <LogOut size={18} />
@@ -203,6 +232,15 @@ export function ProfileScreen() {
             setEditingName(false);
             void saveName(name);
           }}
+        />
+      ) : null}
+
+      {deletingAccount ? (
+        <DeleteAccountModal
+          email={user.email}
+          busy={busy}
+          onClose={() => setDeletingAccount(false)}
+          onConfirm={performDeleteAccount}
         />
       ) : null}
     </div>

@@ -183,6 +183,28 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+
+    deleteAccount: build.mutation<void, void>({
+      queryFn: async () => {
+        try {
+          await httpClient.delete('/auth/profile');
+          return { data: undefined };
+        } catch (error) {
+          return { error: toApiError(error) };
+        }
+      },
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          tokenStorage.clear();
+          dispatch(signedOut());
+          dispatch(clearSector());
+          dispatch(baseApi.util.resetApiState());
+        } catch (error) {
+          void error;
+        }
+      },
+    }),
   }),
 });
 
@@ -198,4 +220,5 @@ export const {
   useResetPasswordMutation,
   useUpdateProfileMutation,
   useLogoutMutation,
+  useDeleteAccountMutation,
 } = authApi;
