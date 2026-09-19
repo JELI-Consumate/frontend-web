@@ -13,6 +13,7 @@ import { SectorSelectionScreen } from '@/features/onboarding/pages/SectorSelecti
 import { JourneyDetailScreen } from '@/features/learning/pages/JourneyDetailScreen';
 import { JourneyCelebrationScreen } from '@/features/learning/pages/JourneyCelebrationScreen';
 import { ModuleScreen } from '@/features/module/screens/ModuleScreen';
+import { PrivacyPolicyScreen } from '@/features/main/pages/PrivacyPolicyScreen';
 
 export function AppRoot() {
   useBootstrapAuth();
@@ -32,6 +33,7 @@ export function AppRoot() {
         <Route path="/auth/reset" element={<ResetPasswordScreen />} />
         <Route path="/auth/otp" element={<OtpVerificationScreen />} />
         <Route path="/auth" element={<AuthScreen />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyScreen />} />
         <Route path="*" element={<AuthScreen />} />
       </Routes>
     );
@@ -44,6 +46,7 @@ export function AppRoot() {
       <Route path="/journey/:journeyId/module/:moduleId" element={<ModuleScreen />} />
       <Route path="/journey/:id/celebration" element={<JourneyCelebrationScreen />} />
       <Route path="/journey/:id" element={<JourneyDetailScreen />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicyScreen />} />
       <Route path="/" element={<MainShell />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
