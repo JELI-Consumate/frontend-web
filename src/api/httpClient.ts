@@ -28,7 +28,7 @@ export function setUnauthorizedHandler(handler: () => void): void {
 httpClient.interceptors.response.use(
   (response) => response,
   (error: unknown) => {
-    if (axios.isAxiosError(error) && error.response?.status === 401) {
+    if (axios.isAxiosError(error) && error.response?.status === 401 && tokenStorage.current !== null) {
       tokenStorage.clear();
       onUnauthorized?.();
     }
