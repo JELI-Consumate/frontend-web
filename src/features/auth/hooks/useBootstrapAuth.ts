@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/app/hooks';
 import { tokenStorage } from '@/core/storage/tokenStorage';
 import { useGetMeQuery } from '../api/authApi';
@@ -6,8 +6,7 @@ import { markBootstrapped, setUser } from '../state/authSlice';
 
 export function useBootstrapAuth(): void {
   const dispatch = useAppDispatch();
-  const hasTokenRef = useRef<boolean>(tokenStorage.read() !== null);
-  const hasToken = hasTokenRef.current;
+  const [hasToken, setHasToken] = useState<boolean>(() => tokenStorage.read() !== null);
 
   const { data, isSuccess, isError } = useGetMeQuery(undefined, { skip: !hasToken });
 
@@ -20,6 +19,7 @@ export function useBootstrapAuth(): void {
       dispatch(setUser(data));
       dispatch(markBootstrapped());
     } else if (isError) {
+      setHasToken(false);
       dispatch(markBootstrapped());
     }
   }, [hasToken, isSuccess, isError, data, dispatch]);
