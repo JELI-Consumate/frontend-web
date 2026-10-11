@@ -14,6 +14,8 @@ import { JourneyDetailScreen } from '@/features/learning/pages/JourneyDetailScre
 import { JourneyCelebrationScreen } from '@/features/learning/pages/JourneyCelebrationScreen';
 import { ModuleScreen } from '@/features/module/screens/ModuleScreen';
 import { PrivacyPolicyScreen } from '@/features/main/pages/PrivacyPolicyScreen';
+import { ComplaintAgenciesScreen } from '@/features/complaint/pages/ComplaintAgenciesScreen';
+import { ComplaintAgencyDetailScreen } from '@/features/complaint/pages/ComplaintAgencyDetailScreen';
 
 export function AppRoot() {
   useBootstrapAuth();
@@ -46,6 +48,8 @@ export function AppRoot() {
       <Route path="/journey/:journeyId/module/:moduleId" element={<ModuleScreen />} />
       <Route path="/journey/:id/celebration" element={<JourneyCelebrationScreen />} />
       <Route path="/journey/:id" element={<JourneyDetailScreen />} />
+      <Route path="/complaint-agencies" element={<ComplaintAgenciesScreen />} />
+      <Route path="/complaint-agencies/:slug" element={<ComplaintAgencyDetailScreen />} />
       <Route path="/privacy-policy" element={<PrivacyPolicyScreen />} />
       <Route path="/" element={<MainShell />} />
       <Route path="*" element={<Navigate to="/" replace />} />

@@ -156,3 +156,57 @@ export const badgesJson = () => [
     earned_at: null,
   },
 ];
+
+export const complaintAgenciesJson = () => [
+  {
+    id: 'a1',
+    slug: 'bpom',
+    short_name: 'BPOM',
+    full_name: 'Badan Pengawas Obat dan Makanan',
+    summary: 'Pengaduan terkait obat, makanan, dan kosmetik.',
+    logo_url: null,
+    order: 1,
+  },
+  {
+    id: 'a2',
+    slug: 'ylki',
+    short_name: 'YLKI',
+    full_name: 'Yayasan Lembaga Konsumen Indonesia',
+    summary: 'Informasi, konsultasi, dan pengaduan konsumen.',
+    logo_url: null,
+    order: 2,
+  },
+];
+
+export const complaintCategoriesJson = () => [
+  {
+    id: 'c1',
+    problem: 'Dugaan produk obat atau makanan ilegal',
+    agencies: [{ slug: 'bpom', short_name: 'BPOM' }],
+  },
+];
+
+export const complaintAgencyDetailJson = (over: Record<string, unknown> = {}) => ({
+  ...complaintAgenciesJson()[0],
+  description: 'BPOM mengawasi obat dan makanan.',
+  when_to_contact: ['Menemukan produk ilegal.', 'Kosmetik berbahaya.'],
+  how_to_access: 'Gunakan kanal resmi BPOM.',
+  notes: null,
+  channels: [
+    {
+      type: 'whatsapp',
+      label: 'WhatsApp Halo BPOM',
+      value: '0811-9181-533',
+      url: 'https://wa.me/6281191811533',
+      button_label: 'Hubungi Halo BPOM',
+    },
+    {
+      type: 'address',
+      label: 'Alamat',
+      value: 'Jl. Percetakan Negara',
+      url: null,
+      button_label: null,
+    },
+  ],
+  ...over,
+});
