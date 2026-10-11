@@ -7,7 +7,9 @@ import {
   Camera,
   Pencil,
   Check,
+  ChevronRight,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { isApiError } from '@/api/apiError';
 import { useAlert } from '@/core/components/alert/useAlert';
@@ -27,6 +29,7 @@ import { DeleteAccountModal } from '../components/DeleteAccountModal';
 
 export function ProfileScreen() {
   const user = useCurrentUser();
+  const navigate = useNavigate();
   const showAlert = useAlert();
   const [logout] = useLogoutMutation();
   const [updateProfile] = useUpdateProfileMutation();
@@ -198,6 +201,13 @@ export function ProfileScreen() {
             tabIndex={-1}
           />
         </div>
+        <div className="h-lg" />
+        <ProfileField
+          label="Bantuan Konsumen"
+          value="Layanan Pengaduan"
+          trailing={<ChevronRight size={18} className="text-primary" />}
+          onClick={() => navigate('/complaint-agencies')}
+        />
         <div className="h-xxl" />
         <div className="flex flex-col gap-md">
           <button
